@@ -539,19 +539,23 @@ html.lenis, html.lenis body { height: auto; }
   }
   .hero-scroll-hint::after { animation: none; }
 }
-/* ==========================================
-   FILM COMPARISON
-========================================== */
+/*==================================================
+FILM COMPARISON
+==================================================*/
 
 .film-comparison{
     width:100%;
-    background:#0b0b0b;
-    padding:120px 0;
+    padding:140px 0;
+    background:#111;
+}
+
+.film-comparison .container{
+    width:min(1400px,90%);
+    margin:0 auto;
 }
 
 .film-block{
-    width:min(1800px,92vw);
-    margin:0 auto 140px;
+    margin-bottom:120px;
 }
 
 .film-block:last-child{
@@ -560,7 +564,8 @@ html.lenis, html.lenis body { height: auto; }
 
 .film-block h2{
     font-family:'Bebas Neue',sans-serif;
-    font-size:clamp(48px,5vw,92px);
+    font-size:60px;
+    font-weight:400;
     letter-spacing:.08em;
     color:#fff;
     text-align:center;
@@ -568,8 +573,25 @@ html.lenis, html.lenis body { height: auto; }
 }
 
 .film-block img{
-    width:100%;
     display:block;
-    border-radius:18px;
-    box-shadow:0 35px 80px rgba(0,0,0,.45);
+    width:100%;
+    height:auto;
+    border-radius:20px;
+    box-shadow:0 30px 80px rgba(0,0,0,.45);
+}
+
+@media (max-width:900px){
+
+    .film-comparison{
+        padding:80px 0;
+    }
+
+    .film-block{
+        margin-bottom:70px;
+    }
+
+    .film-block h2{
+        font-size:38px;
+    }
+
 }
