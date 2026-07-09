@@ -539,3 +539,37 @@ html.lenis, html.lenis body { height: auto; }
   }
   .hero-scroll-hint::after { animation: none; }
 }
+/* ==========================================
+   FILM COMPARISON
+========================================== */
+
+.film-comparison{
+    width:100%;
+    background:#0b0b0b;
+    padding:120px 0;
+}
+
+.film-block{
+    width:min(1800px,92vw);
+    margin:0 auto 140px;
+}
+
+.film-block:last-child{
+    margin-bottom:0;
+}
+
+.film-block h2{
+    font-family:'Bebas Neue',sans-serif;
+    font-size:clamp(48px,5vw,92px);
+    letter-spacing:.08em;
+    color:#fff;
+    text-align:center;
+    margin-bottom:40px;
+}
+
+.film-block img{
+    width:100%;
+    display:block;
+    border-radius:18px;
+    box-shadow:0 35px 80px rgba(0,0,0,.45);
+}
