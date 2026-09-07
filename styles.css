@@ -261,12 +261,13 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 }
 .card.is-hidden { display: none; }
 
-.card-media { position: relative; aspect-ratio: 4 / 3; overflow: hidden; background: var(--surface-2); }
+.card-media { position: relative; aspect-ratio: 1 / 1; overflow: hidden; background: var(--surface-2); }
 .card-media img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s var(--ease); }
 .card:hover .card-media img { transform: scale(1.045); }
 
 .card-badge {
-  position: absolute; top: 0.9rem; left: 0.9rem; z-index: 2;
+  /* Abajo, para no tapar las etiquetas de VLT que traen las fotos arriba */
+  position: absolute; bottom: 0.9rem; left: 0.9rem; z-index: 2;
   font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.14em;
   padding: 0.32rem 0.62rem; border-radius: 4px;
   background: var(--accent); color: #1a1205; font-weight: 700;
@@ -327,8 +328,8 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 }
 .modal-close:hover { background: rgba(11,12,13,0.95); transform: rotate(90deg); }
 
-.modal-hero { aspect-ratio: 16 / 9; overflow: hidden; background: var(--surface-2); }
-.modal-hero img { width: 100%; height: 100%; object-fit: cover; }
+.modal-hero { aspect-ratio: 3 / 2; overflow: hidden; background: var(--ink); }
+.modal-hero img { width: 100%; height: 100%; object-fit: contain; }
 
 .modal-body { padding: clamp(1.5rem, 4vw, 2.6rem); }
 .modal-name {
@@ -576,7 +577,12 @@ a.contact-value:hover { color: var(--accent); }
 
 .filmstage-frame {
   position: relative;
-  aspect-ratio: 4 / 3;
+  /* Las fotos son cuadradas (4096×4096). El cuadro también, así no se
+     recorta nada. max-width atado a vh evita que se salga de pantalla. */
+  aspect-ratio: 1 / 1;
+  width: 100%;
+  max-width: min(100%, 66vh);
+  margin-inline: auto;
   border-radius: var(--r);
   overflow: hidden;
   border: 1px solid var(--line);
@@ -676,7 +682,7 @@ a.contact-value:hover { color: var(--accent); }
 
 @media (max-width: 900px) {
   .filmstage-inner { grid-template-columns: 1fr; gap: 1.5rem; }
-  .filmstage-frame { aspect-ratio: 16 / 11; }
+  .filmstage-frame { aspect-ratio: 1 / 1; max-width: min(100%, 42vh); }
   .filmstage-claim { min-height: 0; margin-bottom: 1rem; }
   .filmstage-btn { margin-bottom: 1.4rem; }
   .filmstage-rail { display: flex; gap: 0.4rem; border-top: none; overflow-x: auto; padding-bottom: 0.3rem; }
