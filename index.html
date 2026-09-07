@@ -1,434 +1,291 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="SOLARO — Premium window film technology. Architectural, automotive, safety and PDLC films engineered for glass.">
-  <meta name="theme-color" content="#121314">
-  <title>SOLARO — Premium Film Technology</title>
-  
-  <!-- Preconnect for fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,300;1,9..40,400&family=Noto+Sans+JP:wght@300;400;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-  
-  <!-- Styles -->
-  <link rel="stylesheet" href="styles.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SOLARO — Películas para vidrio | Control solar, privacidad y PDLC</title>
+<meta name="description" content="Catálogo de películas nano cerámicas, de carbono, reflectivas, decorativas y PDLC switchable para arquitectura y automotriz. Distribución en México y 10 países.">
+<meta name="theme-color" content="#0b0c0d">
+<link rel="canonical" href="https://solarofilms.com/">
+
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://solarofilms.com/">
+<meta property="og:title" content="SOLARO — Películas para vidrio">
+<meta property="og:description" content="Películas nano cerámicas, de carbono, reflectivas y PDLC switchable. Catálogo técnico y cotización directa.">
+<meta property="og:image" content="https://solarofilms.com/assets/opt/ceramic.webp">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,700&family=Noto+Sans+JP:wght@400;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<link rel="preload" as="image" href="assets/opt/ceramic.webp">
 </head>
 <body>
 
-  <!-- Film Grain Overlay -->
-  <div class="grain" aria-hidden="true"></div>
+<a href="#catalogo" class="skip-link" data-i18n="skip">Saltar al catálogo</a>
 
-  <!-- Cursor Light Spot -->
-  <div class="cursor-spot" id="cursorSpot" aria-hidden="true"></div>
+<!-- ═══ NAV ═══ -->
+<nav class="nav" id="nav">
+  <a href="#top" class="nav-mark">SOLARO</a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#catalogo"       data-i18n="nav-cat">Catálogo</a></li>
+    <li><a href="#comparativa"    data-i18n="nav-comp">Comparativa</a></li>
+    <li><a href="#aplicaciones"   data-i18n="nav-apps">Aplicaciones</a></li>
+    <li><a href="#distribuidores" data-i18n="nav-dist">Distribuidores</a></li>
+    <li><a href="#cotizar"        data-i18n="nav-quote">Cotizar</a></li>
+  </ul>
+  <div class="lang-toggle">
+    <button class="lang-btn" data-lang="es">ES</button><span class="lang-sep">/</span>
+    <button class="lang-btn" data-lang="en">EN</button><span class="lang-sep">/</span>
+    <button class="lang-btn" data-lang="ja">JP</button>
+  </div>
+  <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navLinks" aria-label="Menú"><span></span></button>
+</nav>
 
-  <!-- Scroll Progress Dots -->
-  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
-
-  <!-- ═══════════════════════════════════════════ -->
-  <!-- NAVIGATION -->
-  <!-- ═══════════════════════════════════════════ -->
-  <nav class="nav-pill" id="navPill">
-    <a href="#home" class="nav-mark" data-page="home">SOLARO</a>
-    <ul class="nav-links">
-      <li><a href="#home" class="nav-page-link active" data-page="home" data-i18n="nav-home">Home</a></li>
-      <li><a href="#architectural" class="nav-page-link" data-page="architectural" data-i18n="nav-arch">Architectural</a></li>
-      <li><a href="#automotive" class="nav-page-link" data-page="automotive" data-i18n="nav-auto">Automotive</a></li>
-      <li><a href="#pdlc" class="nav-page-link" data-page="pdlc" data-i18n="nav-pdlc">PDLC</a></li>
-      <li><a href="#safety" class="nav-page-link" data-page="safety" data-i18n="nav-safety">Safety</a></li>
-      <li><a href="#contact" class="nav-page-link" data-page="contact" data-i18n="nav-contact">Contact</a></li>
-    </ul>
-    <div class="lang-toggle">
-      <button class="lang-btn" data-lang="es" aria-label="Español">ES</button>
-      <span class="lang-separator" aria-hidden="true">|</span>
-      <button class="lang-btn" data-lang="en" aria-label="English">EN</button>
-      <span class="lang-separator" aria-hidden="true">|</span>
-      <button class="lang-btn" data-lang="ja" aria-label="日本語">JP</button>
+<!-- ═══ HERO ═══ -->
+<header class="hero" id="top">
+  <div class="hero-bg">
+    <img src="assets/opt/ceramic.webp" alt="" fetchpriority="high" width="1800" height="1800">
+  </div>
+  <div class="container hero-inner">
+    <h1 class="hero-wordmark">SOLARO</h1>
+    <p class="hero-tagline" data-i18n="hero-tag">Películas de alto desempeño para vidrio arquitectónico y automotriz. Control solar, privacidad y tecnología switchable.</p>
+    <div class="hero-actions">
+      <a href="#catalogo" class="btn btn-primary" data-i18n="hero-cta1">Ver catálogo</a>
+      <a href="#cotizar" class="btn btn-ghost" data-i18n="hero-cta2">Pedir cotización</a>
     </div>
-  </nav>
+  </div>
+</header>
 
-  <!-- ═══════════════════════════════════════════ -->
-  <!-- PAGES SYSTEM -->
-  <!-- ═══════════════════════════════════════════ -->
 
-  <!-- ── PAGE: HOME (Architectural — default) ── -->
-  <div class="page active" id="page-home">
+<!-- ═══ SECUENCIA DE PELÍCULAS (scroll fijo) ═══ -->
+<section class="filmstage" id="peliculas" aria-label="Las películas">
+  <div class="filmstage-sticky">
+    <div class="container filmstage-inner">
 
-    <!-- HERO -->
-    <section class="hero" id="hero">
-      <div class="hero-glow" id="heroGlow"></div>
-      <div class="hero-content" id="heroContent">
-        <h1 class="hero-wordmark" id="heroWordmark">SOLARO</h1>
-        <p class="hero-tagline" data-i18n="hero-tag">Premium film technology. From Japan.</p>
+      <div class="filmstage-frame">
+        <div class="filmstage-layers" id="stageLayers"></div>
+        <div class="filmstage-glare" aria-hidden="true"></div>
+        <div class="filmstage-index" id="stageIndex"><span>01</span><i></i><em>05</em></div>
       </div>
-      <div class="hero-scroll-hint" data-i18n="hero-scroll">Scroll</div>
-      <div class="hero-line" id="heroLine"></div>
-    </section>
 
-   <!-- FILM COMPARISON -->
-<section class="film-comparison" id="films">
-
-    <div class="container">
-
-        <div class="film-block">
-            <h2>IRX™ CERÁMICA</h2>
-            <img src="assets/ceramic.jpg" alt="IRX Cerámica">
-        </div>
-
-        <div class="film-block">
-            <h2>NANO CARBONX™</h2>
-            <img src="assets/carbon.jpg" alt="Nano CarbonX">
-        </div>
-
-        <div class="film-block">
-            <h2>REFLECTX™</h2>
-            <img src="assets/silver.jpg" alt="ReflectX">
-        </div>
-
-        <div class="film-block">
-            <h2>FROST™</h2>
-            <img src="assets/frost.jpg" alt="Frost">
-        </div>
-
-        <div class="film-block">
-            <h2>PDLC FILM SMARTGLASS™</h2>
-            <img src="assets/pdlc-film.jpg" alt="PDLC Film SmartGlass">
-        </div>
+      <div class="filmstage-copy">
+        <p class="eyebrow" data-i18n="eb-films">Las películas</p>
+        <h2 class="filmstage-name" id="stageName">—</h2>
+        <p class="filmstage-claim" id="stageClaim">—</p>
+        <div class="filmstage-tonos" id="stageTonos"></div>
+        <button class="btn btn-ghost btn-sm filmstage-btn" id="stageBtn" data-i18n="stage-open">Ver ficha técnica</button>
+        <nav class="filmstage-rail" id="stageRail" aria-label="Películas"></nav>
+      </div>
 
     </div>
-
+    <div class="filmstage-hint" id="stageHint" aria-hidden="true">
+      <span data-i18n="hero-scroll">Desplaza</span>
+      <svg width="11" height="26" viewBox="0 0 11 26" fill="none"><path d="M5.5 0v24M1 19.5l4.5 4.5L10 19.5" stroke="currentColor" stroke-width="1.3"/></svg>
+    </div>
+  </div>
 </section>
 
-    <!-- HEAT REJECTION -->
-    <section class="heat-section" id="heat">
-      <div class="heat-visual">
-        <div class="heat-sun" id="heatSun"></div>
-        <div class="heat-rays-container" id="heatRays">
-          <div class="heat-ray"></div>
-          <div class="heat-ray"></div>
-          <div class="heat-ray"></div>
-          <div class="heat-ray"></div>
-          <div class="heat-ray"></div>
-        </div>
-        <div class="env-window-frame" style="position:absolute;top:8%;left:50%;transform:translateX(-50%);width:80%;height:80%;"></div>
-        <div class="glass-pane" style="position:absolute;top:8%;left:50%;transform:translateX(-50%);width:80%;height:80%;">
-          <div class="glass-base"></div>
-          <div class="glass-tint" style="background:rgba(42,43,45,0.3);"></div>
-          <div class="glass-reflection" style="background:linear-gradient(135deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.03) 45%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0.02) 100%);"></div>
-        </div>
-        <div class="heat-temp" id="heatTemp">38°C</div>
-        <div class="heat-bar-wrap">
-          <div class="heat-bar-label" data-i18n="heat-bar">Solar heat rejection up to 93%</div>
-          <div class="heat-bar-track"><div class="heat-bar-fill" id="heatBarFill"></div></div>
-        </div>
-      </div>
-    </section>
+<!-- ═══ MÉTRICAS ═══ -->
+<section class="metrics" aria-label="Datos clave">
+  <div class="metrics-grid">
+    <div class="metric"><div class="metric-val">99%</div><div class="metric-label" data-i18n="m-uv">Bloqueo UV</div></div>
+    <div class="metric"><div class="metric-val">4</div><div class="metric-label" data-i18n="m-lines">Líneas de producto</div></div>
+    <div class="metric"><div class="metric-val">1.52<span style="font-size:.5em">m</span></div><div class="metric-label" data-i18n="m-roll">Ancho de rollo</div></div>
+    <div class="metric"><div class="metric-val">10</div><div class="metric-label" data-i18n="m-dist">Países con distribuidor</div></div>
+  </div>
+</section>
 
-    <!-- UV PROTECTION -->
-    <section class="uv-section" id="uv">
-      <div class="uv-visual">
-        <div class="uv-rays-box">
-          <div class="uv-ray-line"></div>
-          <div class="uv-ray-line"></div>
-          <div class="uv-ray-line"></div>
-          <div class="uv-ray-line"></div>
-          <div class="uv-ray-line"></div>
-          <div class="uv-block-line" id="uvBlockLine"></div>
-        </div>
-        <div>
-          <div class="uv-number" id="uvNumber">0</div>
-          <div class="tech" style="font-size:0.6rem;letter-spacing:0.2em;color:rgba(255,255,255,0.2);margin-top:1rem;" data-i18n="uv-label">UV BLOCKING</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- PRIVACY -->
-    <section class="privacy-section" id="privacy">
-      <div class="privacy-visual">
-        <div class="privacy-glass" id="privacyGlass">
-          <div class="privacy-face privacy-front">
-            <div class="privacy-interior"></div>
-            <div class="privacy-darkness" id="privacyDarkness"></div>
-          </div>
-          <div class="privacy-face privacy-back">
-            <div style="width:40%;height:30%;background:rgba(175,200,216,0.06);border-radius:2px;"></div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- PRODUCT CATEGORIES -->
-    <div id="products">
-      <section class="product-cat" id="cat-arch">
-        <div class="product-cat-inner">
-          <div>
-            <div class="product-cat-name" data-i18n="cat-arch">Architectural Films</div>
-            <div class="product-cat-desc" data-i18n="cat-arch-desc">Enhance existing glass with premium thermal film. Japanese engineering.</div>
-          </div>
-          <div class="product-cat-glass">
-            <div class="product-cat-glass-inner"></div>
-            <div class="product-cat-glass-effect" style="background:rgba(42,43,45,0.15);"></div>
-          </div>
-        </div>
-      </section>
-
-      <section class="product-cat" id="cat-deco">
-        <div class="product-cat-inner">
-          <div>
-            <div class="product-cat-name" data-i18n="cat-deco">Decorative Films</div>
-            <div class="product-cat-desc" data-i18n="cat-deco-desc">Design and privacy. Natural light.</div>
-          </div>
-          <div class="product-cat-glass">
-            <div class="product-cat-glass-inner"></div>
-            <div class="product-cat-glass-effect" style="backdrop-filter:blur(6px);background:rgba(255,255,255,0.08);"></div>
-          </div>
-        </div>
-      </section>
-
-      <section class="product-cat" id="cat-smart">
-        <div class="product-cat-inner">
-          <div>
-            <div class="product-cat-name" data-i18n="cat-smart">PDLC Smart Film</div>
-            <div class="product-cat-desc" data-i18n="cat-smart-desc">PDLC technology. Electrically controlled transparency. Installs on existing glass.</div>
-          </div>
-          <div class="product-cat-glass">
-            <div class="product-cat-glass-inner"></div>
-            <div class="product-cat-glass-effect" id="smartGlassEffect" style="background:repeating-linear-gradient(0deg, rgba(255,255,255,0.04) 0px, transparent 1px, transparent 3px), repeating-linear-gradient(90deg, rgba(255,255,255,0.04) 0px, transparent 1px, transparent 3px); opacity:0.5;"></div>
-          </div>
-        </div>
-      </section>
+<!-- ═══ CATÁLOGO ═══ -->
+<section class="section" id="catalogo">
+  <div class="container">
+    <div class="section-head">
+      <p class="eyebrow" data-i18n="eb-cat">Catálogo</p>
+      <h2 class="section-title" data-i18n="cat-title">Cinco líneas. Un criterio para cada vidrio.</h2>
+      <p class="section-lead" data-i18n="cat-lead">Cada línea resuelve un problema distinto: calor sin oscurecer, privacidad, fachada con sol directo, o transparencia controlada. Abre cualquier ficha para ver especificaciones y tonos.</p>
     </div>
+    <div class="filters" id="filters" role="group" aria-label="Filtrar catálogo"></div>
+    <div class="catalog" id="catalog"></div>
+  </div>
+</section>
 
-    <!-- METRICS -->
-    <section class="metrics-section" id="metrics">
-      <div class="metrics-row">
-        <div class="metric">
-          <div class="metric-val" data-target="99">0</div>
-          <div class="metric-unit" data-i18n="met-uv">UV BLOCKING</div>
-          <div class="metric-bar-track"><div class="metric-bar-fill" data-fill="99"></div></div>
-        </div>
-        <div class="metric">
-          <div class="metric-val" data-target="93">0</div>
-          <div class="metric-unit" data-i18n="met-ir">IR REJECTION</div>
-          <div class="metric-bar-track"><div class="metric-bar-fill" data-fill="93"></div></div>
-        </div>
-        <div class="metric">
-          <div class="metric-val" data-target="85">0</div>
-          <div class="metric-unit" data-i18n="met-glare">GLARE REDUCTION</div>
-          <div class="metric-bar-track"><div class="metric-bar-fill" data-fill="85"></div></div>
-        </div>
+<!-- ═══ COMPARATIVA ═══ -->
+<section class="section" id="comparativa">
+  <div class="container">
+    <div class="section-head">
+      <p class="eyebrow" data-i18n="eb-comp">Comparativa</p>
+      <h2 class="section-title" data-i18n="comp-title">Todo el catálogo, lado a lado.</h2>
+      <p class="section-lead" data-i18n="comp-lead">Los datos que ya están verificados. Los valores térmicos se publican cuando tengamos el reporte de laboratorio.</p>
+    </div>
+    <div class="compare-scroll"><table class="compare" id="compare"></table></div>
+  </div>
+</section>
+
+<!-- ═══ APLICACIONES ═══ -->
+<section class="section" id="aplicaciones">
+  <div class="container">
+    <div class="section-head">
+      <p class="eyebrow" data-i18n="eb-apps">Aplicaciones</p>
+      <h2 class="section-title" data-i18n="apps-title">¿Cuál va en tu proyecto?</h2>
+    </div>
+    <div class="apps-grid" id="apps"></div>
+  </div>
+</section>
+
+<!-- ═══ POR QUÉ ═══ -->
+<section class="section" id="porque">
+  <div class="container">
+    <div class="section-head">
+      <p class="eyebrow" data-i18n="eb-why">Por qué SOLARO</p>
+      <h2 class="section-title" data-i18n="why-title">Distribución seria, no catálogo bonito.</h2>
+    </div>
+    <div class="why-grid">
+      <div class="why-item">
+        <h3 class="why-title" data-i18n="why1-t">Inventario en piso</h3>
+        <p class="why-text" data-i18n="why1-d">Rollos de 1.52 × 30 m disponibles en Guadalajara. Sin esperar tres meses a un contenedor.</p>
       </div>
-    </section>
+      <div class="why-item">
+        <h3 class="why-title" data-i18n="why2-t">Soporte técnico real</h3>
+        <p class="why-text" data-i18n="why2-d">Te ayudamos a elegir el tono correcto según orientación de fachada, tipo de vidrio y uso del espacio.</p>
+      </div>
+      <div class="why-item">
+        <h3 class="why-title" data-i18n="why3-t">Red de instaladores</h3>
+        <p class="why-text" data-i18n="why3-d">Si no instalas, te conectamos con un instalador certificado en tu zona.</p>
+      </div>
+      <div class="why-item">
+        <h3 class="why-title" data-i18n="why4-t">Precio de distribuidor</h3>
+        <p class="why-text" data-i18n="why4-d">Esquema por volumen para talleres, constructoras y despachos de arquitectura.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <!-- FINAL CTA -->
-    <section class="cta-section" id="cta">
+<!-- ═══ DISTRIBUIDORES ═══ -->
+<section class="section" id="distribuidores">
+  <div class="container">
+    <div class="section-head">
+      <p class="eyebrow" data-i18n="eb-dist">Red global</p>
+      <h2 class="section-title" data-i18n="dist-title">Distribuidores.</h2>
+    </div>
+    <div class="dist-grid" id="dist"></div>
+  </div>
+</section>
+
+<!-- ═══ COTIZAR ═══ -->
+<section class="section" id="cotizar">
+  <div class="container">
+    <div class="quote">
       <div>
-        <div class="cta-giant" data-i18n="cta-head">Your glass. Another category.</div>
-        <a href="#" class="cta-btn" data-i18n="cta-btn" onclick="openWA();return false;">Get a quote on WhatsApp</a>
-      </div>
-    </section>
-
-  </div>
-  <!-- END PAGE: HOME -->
-
-  <!-- ── PAGE: ARCHITECTURAL ── -->
-  <div class="page" id="page-architectural">
-    <section class="hero" id="hero-arch">
-      <div class="hero-glow"></div>
-      <div class="hero-content">
-        <h1 class="hero-wordmark">SOLARO</h1>
-        <p class="hero-tagline" data-i18n="arch-hero-tag">Premium films for architecture and interiors.</p>
-      </div>
-    </section>
-    <section class="product-cat">
-      <div class="product-cat-inner">
-        <div>
-          <div class="product-cat-name" data-i18n="cat-arch">Architectural Films</div>
-          <div class="product-cat-desc" data-i18n="cat-arch-desc">Enhance existing glass with premium thermal film. Japanese engineering.</div>
-        </div>
-        <div class="product-cat-glass">
-          <div class="product-cat-glass-inner"></div>
-          <div class="product-cat-glass-effect" style="background:rgba(42,43,45,0.15);"></div>
-        </div>
-      </div>
-    </section>
-    <section class="cta-section">
-      <div>
-        <div class="cta-giant" data-i18n="arch-cta">Your space. Another category.</div>
-        <a href="#" class="cta-btn" data-i18n="cta-btn" onclick="openWA();return false;">Get a quote on WhatsApp</a>
-      </div>
-    </section>
-  </div>
-
-  <!-- ── PAGE: AUTOMOTIVE ── -->
-  <div class="page" id="page-automotive">
-    <section class="hero" id="hero-auto">
-      <div class="hero-glow"></div>
-      <div class="hero-content">
-        <h1 class="hero-wordmark">SOLARO</h1>
-        <p class="hero-tagline" data-i18n="auto-hero-tag">Premium automotive window film. From Japan.</p>
-      </div>
-    </section>
-    <section class="product-cat">
-      <div class="product-cat-inner">
-        <div>
-          <div class="product-cat-name" data-i18n="cat-auto">Automotive Films</div>
-          <div class="product-cat-desc" data-i18n="cat-auto-desc">Window film for premium vehicles. Thermal and UV protection.</div>
-        </div>
-        <div class="product-cat-glass">
-          <div class="product-cat-glass-inner"></div>
-          <div class="product-cat-glass-effect" style="background:rgba(18,19,20,0.4);"></div>
-        </div>
-      </div>
-    </section>
-    <section class="cta-section">
-      <div>
-        <div class="cta-giant" data-i18n="auto-cta">Your vehicle. Another category.</div>
-        <a href="#" class="cta-btn" data-i18n="cta-btn" onclick="openWA();return false;">Get a quote on WhatsApp</a>
-      </div>
-    </section>
-  </div>
-
-  <!-- ── PAGE: PDLC ── -->
-  <div class="page" id="page-pdlc">
-    <section class="hero" id="hero-pdlc">
-      <div class="hero-glow"></div>
-      <div class="hero-content">
-        <h1 class="hero-wordmark">SOLARO</h1>
-        <p class="hero-tagline" data-i18n="pdlc-hero-tag">Switchable PDLC film for existing glass.</p>
-      </div>
-    </section>
-    <section class="product-cat">
-      <div class="product-cat-inner">
-        <div>
-          <div class="product-cat-name" data-i18n="cat-smart">PDLC Smart Film</div>
-          <div class="product-cat-desc" data-i18n="cat-smart-desc">PDLC technology. Electrically controlled transparency. Installs on existing glass.</div>
-        </div>
-        <div class="product-cat-glass">
-          <div class="product-cat-glass-inner"></div>
-          <div class="product-cat-glass-effect" style="background:repeating-linear-gradient(0deg, rgba(255,255,255,0.04) 0px, transparent 1px, transparent 3px), repeating-linear-gradient(90deg, rgba(255,255,255,0.04) 0px, transparent 1px, transparent 3px); opacity:0.5;"></div>
-        </div>
-      </div>
-    </section>
-    <section class="cta-section">
-      <div>
-        <div class="cta-giant" data-i18n="pdlc-cta">Privacy on demand.</div>
-        <a href="#" class="cta-btn" data-i18n="cta-btn" onclick="openWA();return false;">Get a quote on WhatsApp</a>
-      </div>
-    </section>
-  </div>
-
-  <!-- ── PAGE: SAFETY ── -->
-  <div class="page" id="page-safety">
-    <section class="hero" id="hero-safety">
-      <div class="hero-glow"></div>
-      <div class="hero-content">
-        <h1 class="hero-wordmark">SOLARO</h1>
-        <p class="hero-tagline" data-i18n="safety-hero-tag">Safety and security films for glass.</p>
-      </div>
-    </section>
-    <section class="product-cat">
-      <div class="product-cat-inner">
-        <div>
-          <div class="product-cat-name" data-i18n="cat-safety">Safety &amp; Security Films</div>
-          <div class="product-cat-desc" data-i18n="cat-safety-desc">Shatter retention. Impact resistance. Safety for existing glass.</div>
-        </div>
-        <div class="product-cat-glass">
-          <div class="product-cat-glass-inner"></div>
-          <div class="product-cat-glass-effect" style="border:1px solid rgba(255,255,255,0.08);background:rgba(42,43,45,0.05);"></div>
-        </div>
-      </div>
-    </section>
-    <section class="cta-section">
-      <div>
-        <div class="cta-giant" data-i18n="safety-cta">Protection that lasts.</div>
-        <a href="#" class="cta-btn" data-i18n="cta-btn" onclick="openWA();return false;">Get a quote on WhatsApp</a>
-      </div>
-    </section>
-  </div>
-
-  <!-- ── PAGE: CONTACT ── -->
-  <div class="page" id="page-contact">
-    <section class="hero" id="hero-contact">
-      <div class="hero-glow"></div>
-      <div class="hero-content" style="text-align:center;">
-        <h1 class="hero-wordmark">SOLARO</h1>
-        <p class="hero-tagline" data-i18n="contact-hero-tag" style="margin-bottom:3rem;">Let's talk about your project.</p>
-        <div style="display:flex;flex-direction:column;gap:1.5rem;align-items:center;">
-          <a href="mailto:sales@solarofilms.com" class="cta-btn" style="background:transparent;border:1px solid rgba(255,255,255,0.15);">sales@solarofilms.com</a>
-          <a href="tel:+523310000000" class="cta-btn" style="background:transparent;border:1px solid rgba(255,255,255,0.15);">+52 (33) 100 0000</a>
-        </div>
-      </div>
-    </section>
-  </div>
-
-  <!-- ═══════════════════════════════════════════ -->
-  <!-- FOOTER -->
-  <!-- ═══════════════════════════════════════════ -->
-  <footer class="footer" id="footer">
-    <div class="footer-grid">
-      <div class="footer-col">
-        <div class="footer-col-label" data-i18n="footer-social">Social</div>
-        <div class="footer-social-links">
-          <a href="https://instagram.com/solarofilms" target="_blank" rel="noopener" class="footer-social-link" aria-label="Instagram">Instagram</a>
-          <a href="https://facebook.com/solarofilms" target="_blank" rel="noopener" class="footer-social-link" aria-label="Facebook">Facebook</a>
-        </div>
-      </div>
-      <div class="footer-col footer-col-wide">
-        <div class="footer-col-label" data-i18n="footer-distributors">Global Distributors</div>
-        <div class="footer-dist-grid">
-          <div class="footer-dist-item" data-i18n="dist-mx">Mexico — VITRA Polarizados</div>
-          <div class="footer-dist-item" data-i18n="dist-us">United States — SOLARO West</div>
-          <div class="footer-dist-item" data-i18n="dist-ca">Canada — Northline Films</div>
-          <div class="footer-dist-item" data-i18n="dist-es">Spain — Luz Clara Studio</div>
-          <div class="footer-dist-item" data-i18n="dist-fr">France — Maison Solaire</div>
-          <div class="footer-dist-item" data-i18n="dist-jp">Japan — Hikari Film Co.</div>
-          <div class="footer-dist-item" data-i18n="dist-au">Australia — Southern Glass Films</div>
-          <div class="footer-dist-item" data-i18n="dist-ae">United Arab Emirates — Desert Light Films</div>
-          <div class="footer-dist-item" data-i18n="dist-br">Brazil — Brava Film Group</div>
-          <div class="footer-dist-item" data-i18n="dist-cl">Chile — Andes Solar Films</div>
-        </div>
-      </div>
-      <div class="footer-col">
-        <div class="footer-col-label" data-i18n="footer-contact">Contact</div>
-        <div class="footer-contact-info">
-          <div class="footer-contact-row">
-            <span class="footer-contact-label" data-i18n="footer-email">Email</span>
-            <a href="mailto:sales@solarofilms.com" class="footer-contact-value">sales@solarofilms.com</a>
+        <p class="eyebrow" data-i18n="eb-quote">Cotización</p>
+        <h2 class="section-title" data-i18n="quote-title">Dinos qué necesitas.</h2>
+        <p class="section-lead" style="margin-bottom:2rem" data-i18n="quote-lead">Llena los campos y se abre WhatsApp con el mensaje ya redactado. No guardamos tus datos en ningún servidor.</p>
+        <form class="form-grid" id="quoteForm" novalidate>
+          <div class="field">
+            <label for="qNombre" data-i18n="f-name">Nombre</label>
+            <input id="qNombre" name="nombre" type="text" autocomplete="name" required>
           </div>
-          <div class="footer-contact-row">
-            <span class="footer-contact-label" data-i18n="footer-phone">Phone</span>
-            <a href="tel:+523310000000" class="footer-contact-value">+52 (33) 100 0000</a>
+          <div class="field">
+            <label for="qProducto" data-i18n="f-product">Producto de interés</label>
+            <select id="qProducto" name="producto"></select>
+          </div>
+          <div class="field">
+            <label for="qTipo" data-i18n="f-type">Tipo de proyecto</label>
+            <select id="qTipo" name="tipo"></select>
+          </div>
+          <div class="field">
+            <label for="qMetros" data-i18n="f-m2">Metros cuadrados aproximados</label>
+            <input id="qMetros" name="metros" type="text" inputmode="numeric" placeholder="ej. 120">
+          </div>
+          <div class="field">
+            <label for="qMsg" data-i18n="f-msg">Detalles</label>
+            <textarea id="qMsg" name="mensaje" data-i18n-ph="f-msg-ph" placeholder="Orientación de la fachada, tipo de vidrio, ciudad…"></textarea>
+          </div>
+          <button type="submit" class="btn btn-wa" style="justify-self:start">
+            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            <span data-i18n="f-send">Enviar por WhatsApp</span>
+          </button>
+          <p class="form-note" id="formNote"></p>
+        </form>
+      </div>
+
+      <div class="contact-block">
+        <div class="contact-row">
+          <div class="contact-label" data-i18n="c-wa">WhatsApp</div>
+          <a class="contact-value" id="cWa" href="#">—</a>
+        </div>
+        <div class="contact-row">
+          <div class="contact-label" data-i18n="c-tel">Teléfono</div>
+          <a class="contact-value" id="cTel" href="#">—</a>
+        </div>
+        <div class="contact-row">
+          <div class="contact-label" data-i18n="c-mail">Email</div>
+          <a class="contact-value" id="cMail" href="#">—</a>
+        </div>
+        <div class="contact-row">
+          <div class="contact-label" data-i18n="c-city">Ubicación</div>
+          <div class="contact-value" id="cCity">—</div>
+        </div>
+        <div class="contact-row">
+          <div class="contact-label" data-i18n="c-social">Redes</div>
+          <div style="display:flex;gap:1.1rem;margin-top:.3rem">
+            <a class="contact-value" id="cIg" href="#">Instagram</a>
+            <a class="contact-value" id="cFb" href="#">Facebook</a>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-top">
+      <div>
+        <div class="footer-mark">SOLARO</div>
+        <p class="footer-tag" data-i18n="foot-tag">Películas de alto desempeño para vidrio. Distribución y soporte técnico.</p>
+      </div>
+      <div>
+        <div class="footer-col-label" data-i18n="foot-nav">Navegación</div>
+        <div class="footer-links">
+          <a href="#catalogo"       data-i18n="nav-cat">Catálogo</a>
+          <a href="#comparativa"    data-i18n="nav-comp">Comparativa</a>
+          <a href="#aplicaciones"   data-i18n="nav-apps">Aplicaciones</a>
+          <a href="#distribuidores" data-i18n="nav-dist">Distribuidores</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-label" data-i18n="foot-contact">Contacto</div>
+        <div class="footer-links" id="footContact"></div>
       </div>
     </div>
     <div class="footer-bottom">
-      <div class="footer-mark">SOLARO</div>
-      <div class="footer-langs">
-        <button data-lang="es">ES</button>
-        <span style="color:rgba(255,255,255,0.08);padding:0 4px;">|</span>
-        <button data-lang="en">EN</button>
-        <span style="color:rgba(255,255,255,0.08);padding:0 4px;">|</span>
-        <button data-lang="ja">JP</button>
-      </div>
+      <div>© <span id="year"></span> SOLARO</div>
+      <div data-i18n="foot-legal">Las especificaciones pueden variar según lote y condiciones de instalación.</div>
     </div>
-  </footer>
+  </div>
+</footer>
 
-  <!-- WhatsApp Floating Button -->
-  <a href="#" class="wa-float" id="waFloat" onclick="openWA();return false;" aria-label="WhatsApp">
-    <svg viewBox="0 0 24 24" width="22" height="22"><path fill="currentColor" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-  </a>
+<!-- ═══ MODAL ═══ -->
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalName">
+  <div class="modal-backdrop" data-close></div>
+  <div class="modal-panel" id="modalPanel">
+    <button class="modal-close" data-close aria-label="Cerrar">
+      <svg width="15" height="15" viewBox="0 0 15 15" aria-hidden="true"><path stroke="currentColor" stroke-width="1.4" d="M1 1l13 13M14 1L1 14"/></svg>
+    </button>
+    <div class="modal-hero"><img id="modalImg" src="" alt=""></div>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
 
-  <!-- Libraries (CDN) -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-  <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
-  
-  <!-- Application Script -->
-  <script src="script.js"></script>
+<!-- ═══ WHATSAPP FLOTANTE ═══ -->
+<a href="#cotizar" class="wa-float" id="waFloat">
+  <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  <span data-i18n="wa-float">Cotizar</span>
+</a>
+
+<script src="products.js"></script>
+<script src="script.js"></script>
 </body>
 </html>

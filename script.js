@@ -1,510 +1,685 @@
-/**
- * SOLARO — Premium Film Technology
- * Application Script
- * 
- * Libraries (loaded via CDN in index.html):
- * - GSAP 3 + ScrollTrigger
- * - Lenis smooth scroll
- */
+/* ═══════════════════════════════════════════════════════════════
+   SOLARO — Lógica del sitio
+   Renderiza el catálogo desde products.js, maneja idioma, ficha
+   técnica, filtros y el cotizador de WhatsApp.
+   ═══════════════════════════════════════════════════════════════ */
 
-// ═══════════════════════════════════════════════════
-// I18N DICTIONARY
-// ═══════════════════════════════════════════════════
+/* ─── Textos de interfaz (los datos de producto viven en products.js) ─── */
 const I18N = {
-  ja: {
-    'nav-home':'ホーム','nav-arch':'アーキテクチュラル','nav-auto':'Automotive','nav-pdlc':'PDLC','nav-safety':'セーフティ','nav-contact':'お問い合わせ',
-    'hero-tag':'プレミアムフィルム。日本から。','hero-scroll':'スクロール',
-    'glass-0':'クリア','glass-1':'IRX™ セラミック','glass-2':'CarbonX™ カーボン','glass-3':'リフレクティブ','glass-4':'フローズン','glass-5':'PDLC スイッチフィルム',
-    'glass-state-0':'CLEAR','glass-state-1':'CERAMIC','glass-state-2':'CARBON','glass-state-3':'REFLECTIVE','glass-state-4':'FROST','glass-state-5':'PDLC',
-    'heat-bar':'太陽熱遮蔽率 最大93%','uv-label':'UV 遮蔽率','met-uv':'UV 遮蔽','met-ir':'IR 遮蔽','met-glare':'まぶしさ低減',
-    'cat-arch':'アーキテクチュラル・フィルム','cat-arch-desc':'既存のガラスを、高性能なフィルムで強化。日本の技術。',
-    'cat-auto':'Automotive','cat-auto-desc':'プレミアム車両用の窓フィルム。熱と紫外線から守る。',
-    'cat-safety':'セーフティ＆セキュリティ','cat-safety-desc':'破片保持。防衝擊。既存ガラスの安全性を向上。',
-    'cat-deco':'デコラティブ・フィルム','cat-deco-desc':'デザインとプライバシー。光を通す。',
-    'cat-smart':'PDLC スイッチフィルム','cat-smart-desc':'PDLC技術。透明度を電気制御。既存ガラスに貼付。',
-    'cta-head':'フィルムで、別次元へ。','cta-btn':'お問い合わせ',
-    'wa-msg':'SOLAROフィルムについてご相談があります。',
-    'arch-hero-tag':'建築とインテリアのためのプレミアムフィルム。','arch-cta':'あなたの空間。別次元へ。',
-    'auto-hero-tag':'プレミアムautomotiveフィルム。日本から。','auto-cta':'あなたの車。別次元へ。',
-    'pdlc-hero-tag':'既存ガラス用のスイッチPDLCフィルム。','pdlc-cta':'オンデマンドプライバシー。',
-    'safety-hero-tag':'ガラス用のセーフティ＆セキュリティフィルム。','safety-cta':'持続する保護。',
-    'contact-hero-tag':'プロジェクトについてお話を。',
-    'footer-social':'ソーシャル','footer-distributors':'グローバル卸売パートナー','footer-contact':'お問い合わせ','footer-email':'Email','footer-phone':'Phone',
-    'dist-mx':'Mexico — VITRA Polarizados','dist-us':'United States — SOLARO West','dist-ca':'Canada — Northline Films',
-    'dist-es':'Spain — Luz Clara Studio','dist-fr':'France — Maison Solaire','dist-jp':'Japan — Hikari Film Co.',
-    'dist-au':'Australia — Southern Glass Films','dist-ae':'United Arab Emirates — Desert Light Films',
-    'dist-br':'Brazil — Brava Film Group','dist-cl':'Chile — Andes Solar Films'
-  },
   es: {
-    'nav-home':'Inicio','nav-arch':'Arquitectónica','nav-auto':'Automotriz','nav-pdlc':'PDLC','nav-safety':'Seguridad','nav-contact':'Contacto',
-    'hero-tag':'Tecnología de película premium. Desde Japón.','hero-scroll':'Desplaza',
-    'glass-0':'CLEAR','glass-1':'IRX™ Cerámica','glass-2':'CarbonX™ Carbono','glass-3':'Reflectivo','glass-4':'Frost','glass-5':'PDLC Switch Film',
-    'glass-state-0':'CLARO','glass-state-1':'CERÁMICA','glass-state-2':'CARBONO','glass-state-3':'REFLECTIVO','glass-state-4':'FROST','glass-state-5':'PDLC',
-    'heat-bar':'Rechazo de calor solar hasta 93%','uv-label':'BLOQUEO UV','met-uv':'BLOQUEO UV','met-ir':'RECHAZO IR','met-glare':'REDUCCIÓN BRILLO',
-    'cat-arch':'Películas Arquitectónicas','cat-arch-desc':'Refuerza el vidrio existente con película térmica premium. Ingeniería japonesa.',
-    'cat-auto':'Películas Automotrices','cat-auto-desc':'Película para vehículos premium. Protección térmica y UV.',
-    'cat-safety':'Seguridad y Protección','cat-safety-desc':'Retención de fragmentos. Resistencia al impacto. Seguridad para vidrio existente.',
-    'cat-deco':'Películas Decorativas','cat-deco-desc':'Diseño y privacidad. Luz natural.',
-    'cat-smart':'Película PDLC Switchable','cat-smart-desc':'Tecnología PDLC. Transparencia controlada por electricidad. Se instala sobre vidrio existente.',
-    'cta-head':'Tu vidrio. Otra categoría.','cta-btn':'Cotizar por WhatsApp',
-    'wa-msg':'Hola, me interesa la película premium SOLARO.',
-    'arch-hero-tag':'Películas premium para arquitectura e interiores.','arch-cta':'Tu espacio. Otra categoría.',
-    'auto-hero-tag':'Película automotriz premium. Desde Japón.','auto-cta':'Tu vehículo. Otra categoría.',
-    'pdlc-hero-tag':'Película PDLC switchable para vidrio existente.','pdlc-cta':'Privacidad bajo demanda.',
-    'safety-hero-tag':'Películas de seguridad para vidrio.','safety-cta':'Protección que perdura.',
-    'contact-hero-tag':'Hablemos de tu proyecto.',
-    'footer-social':'Redes Sociales','footer-distributors':'Distribuidores Globales','footer-contact':'Contacto','footer-email':'Email','footer-phone':'Teléfono',
-    'dist-mx':'Mexico — VITRA Polarizados','dist-us':'United States — SOLARO West','dist-ca':'Canada — Northline Films',
-    'dist-es':'Spain — Luz Clara Studio','dist-fr':'France — Maison Solaire','dist-jp':'Japan — Hikari Film Co.',
-    'dist-au':'Australia — Southern Glass Films','dist-ae':'United Arab Emirates — Desert Light Films',
-    'dist-br':'Brazil — Brava Film Group','dist-cl':'Chile — Andes Solar Films'
+    'skip': 'Saltar al catálogo',
+    'nav-cat': 'Catálogo', 'nav-comp': 'Comparativa', 'nav-apps': 'Aplicaciones',
+    'nav-dist': 'Distribuidores', 'nav-quote': 'Cotizar',
+    'hero-tag': 'Películas de alto desempeño para vidrio arquitectónico y automotriz. Control solar, privacidad y tecnología switchable.',
+    'hero-cta1': 'Ver catálogo', 'hero-cta2': 'Pedir cotización',
+    'm-uv': 'Bloqueo UV', 'm-lines': 'Tonos cerámicos', 'm-roll': 'Ancho de rollo', 'm-dist': 'Países con distribuidor',
+    'eb-cat': 'Catálogo',
+    'cat-title': 'Dos líneas en piso. Tres más bajo pedido.',
+    'cat-lead': 'Cada línea resuelve un problema distinto: calor sin oscurecer, privacidad, fachada con sol directo, o transparencia controlada. Abre cualquier ficha para ver especificaciones y tonos.',
+    'eb-comp': 'Comparativa', 'comp-title': 'Todo el catálogo, lado a lado.',
+    'comp-lead': 'Los datos que ya están verificados. Los valores térmicos se publican cuando tengamos el reporte de laboratorio.',
+    'eb-apps': 'Aplicaciones', 'apps-title': '¿Cuál va en tu proyecto?',
+    'eb-why': 'Por qué SOLARO', 'why-title': 'Distribución seria, no catálogo bonito.',
+    'why1-t': 'Inventario en piso', 'why1-d': 'Rollos de 1.52 × 30 m disponibles en Guadalajara. Sin esperar tres meses a un contenedor.',
+    'why2-t': 'Soporte técnico real', 'why2-d': 'Te ayudamos a elegir el tono correcto según orientación de fachada, tipo de vidrio y uso del espacio.',
+    'why3-t': 'Red de instaladores', 'why3-d': 'Si no instalas, te conectamos con un instalador certificado en tu zona.',
+    'why4-t': 'Precio de distribuidor', 'why4-d': 'Esquema por volumen para talleres, constructoras y despachos de arquitectura.',
+    'eb-dist': 'Red global', 'dist-title': 'Distribuidores.',
+    'eb-quote': 'Cotización', 'quote-title': 'Dinos qué necesitas.',
+    'quote-lead': 'Llena los campos y se abre WhatsApp con el mensaje ya redactado. No guardamos tus datos en ningún servidor.',
+    'f-name': 'Nombre', 'f-product': 'Producto de interés', 'f-type': 'Tipo de proyecto',
+    'f-m2': 'Metros cuadrados aproximados', 'f-msg': 'Detalles',
+    'f-msg-ph': 'Orientación de la fachada, tipo de vidrio, ciudad…',
+    'f-send': 'Enviar por WhatsApp',
+    'f-any': 'Aún no lo sé', 'f-t-res': 'Residencial', 'f-t-corp': 'Corporativo / oficina',
+    'f-t-int': 'Interiores / privacidad', 'f-t-auto': 'Automotriz', 'f-t-dist': 'Quiero distribuir',
+    'c-wa': 'WhatsApp', 'c-tel': 'Teléfono', 'c-mail': 'Email', 'c-city': 'Ubicación', 'c-social': 'Redes',
+    'foot-tag': 'Películas de alto desempeño para vidrio. Distribución y soporte técnico.',
+    'foot-nav': 'Navegación', 'foot-contact': 'Contacto',
+    'foot-legal': 'Las especificaciones pueden variar según lote y condiciones de instalación.',
+    'wa-float': 'Cotizar',
+    'f-all': 'Todo', 'f-arch': 'Arquitectónica', 'f-auto': 'Automotriz', 'f-deco': 'Decorativa',
+    'spec-title': 'Especificaciones', 'benefit-title': 'Beneficios', 'tone-title': 'Tonos disponibles',
+    's-tec': 'Tecnología', 's-vlt': 'Luz visible (VLT)', 's-uv': 'Bloqueo UV', 's-ir': 'Rechazo IR',
+    's-tser': 'Rechazo solar total (TSER)', 's-shgc': 'SHGC', 's-sc': 'Coef. de sombra',
+    's-rollo': 'Rollo', 's-gar': 'Garantía', 's-inst': 'Instalación',
+    's-volt': 'Voltaje', 's-cons': 'Consumo', 's-glare': 'Reducción de brillo',
+    'pending': 'A confirmar',
+    'modal-cta': 'Cotizar esta película', 'modal-close': 'Cerrar',
+    'wa-generic': 'Hola, me interesa el catálogo SOLARO.',
+    'wa-product': 'Hola, me interesa la película',
+    'no-wa': 'El WhatsApp aún no está configurado. Escríbenos por email mientras tanto.',
+    'setup': 'Falta configurar el número de WhatsApp en products.js',
+    'setup-hide': 'Ocultar',
+    'th-product': 'Producto', 'th-tones': 'Tonos',
+    's-avail': 'Disponibilidad', 'av-stock': 'En existencia', 'av-order': 'Bajo pedido',
+    'eb-films': 'Las películas', 'stage-open': 'Ver ficha técnica', 'hero-scroll': 'Desplaza',
+    'ir-note': 'El rechazo IR se mide a 1400 nm y es igual en toda la línea cerámica. No equivale al rechazo de calor total (TSER), que varía según el tono.'
   },
   en: {
-    'nav-home':'Home','nav-arch':'Architectural','nav-auto':'Automotive','nav-pdlc':'PDLC','nav-safety':'Safety','nav-contact':'Contact',
-    'hero-tag':'Premium film technology. From Japan.','hero-scroll':'Scroll',
-    'glass-0':'Clear','glass-1':'IRX™ Ceramic','glass-2':'CarbonX™ Carbon','glass-3':'Reflective','glass-4':'Frost','glass-5':'PDLC Switch Film',
-    'glass-state-0':'CLEAR','glass-state-1':'CERAMIC','glass-state-2':'CARBON','glass-state-3':'REFLECTIVE','glass-state-4':'FROST','glass-state-5':'PDLC',
-    'heat-bar':'Solar heat rejection up to 93%','uv-label':'UV BLOCKING','met-uv':'UV BLOCKING','met-ir':'IR REJECTION','met-glare':'GLARE REDUCTION',
-    'cat-arch':'Architectural Films','cat-arch-desc':'Enhance existing glass with premium thermal film. Japanese engineering.',
-    'cat-auto':'Automotive Films','cat-auto-desc':'Window film for premium vehicles. Thermal and UV protection.',
-    'cat-safety':'Safety & Security Films','cat-safety-desc':'Shatter retention. Impact resistance. Safety for existing glass.',
-    'cat-deco':'Decorative Films','cat-deco-desc':'Design and privacy. Natural light.',
-    'cat-smart':'PDLC Smart Film','cat-smart-desc':'PDLC technology. Electrically controlled transparency. Installs on existing glass.',
-    'cta-head':'Your glass. Another category.','cta-btn':'Get a quote on WhatsApp',
-    'wa-msg':'Hi, I\'m interested in SOLARO premium film.',
-    'arch-hero-tag':'Premium films for architecture and interiors.','arch-cta':'Your space. Another category.',
-    'auto-hero-tag':'Premium automotive window film. From Japan.','auto-cta':'Your vehicle. Another category.',
-    'pdlc-hero-tag':'Switchable PDLC film for existing glass.','pdlc-cta':'Privacy on demand.',
-    'safety-hero-tag':'Safety and security films for glass.','safety-cta':'Protection that lasts.',
-    'contact-hero-tag':'Let\'s talk about your project.',
-    'footer-social':'Social','footer-distributors':'Global Distributors','footer-contact':'Contact','footer-email':'Email','footer-phone':'Phone',
-    'dist-mx':'Mexico — VITRA Polarizados','dist-us':'United States — SOLARO West','dist-ca':'Canada — Northline Films',
-    'dist-es':'Spain — Luz Clara Studio','dist-fr':'France — Maison Solaire','dist-jp':'Japan — Hikari Film Co.',
-    'dist-au':'Australia — Southern Glass Films','dist-ae':'United Arab Emirates — Desert Light Films',
-    'dist-br':'Brazil — Brava Film Group','dist-cl':'Chile — Andes Solar Films'
+    'skip': 'Skip to catalog',
+    'nav-cat': 'Catalog', 'nav-comp': 'Compare', 'nav-apps': 'Applications',
+    'nav-dist': 'Distributors', 'nav-quote': 'Get a quote',
+    'hero-tag': 'High-performance films for architectural and automotive glass. Solar control, privacy and switchable technology.',
+    'hero-cta1': 'View catalog', 'hero-cta2': 'Request a quote',
+    'm-uv': 'UV blocking', 'm-lines': 'Ceramic shades', 'm-roll': 'Roll width', 'm-dist': 'Countries with a distributor',
+    'eb-cat': 'Catalog',
+    'cat-title': 'Two lines in stock. Three more on order.',
+    'cat-lead': 'Each line solves a different problem: heat without darkening, privacy, façades in direct sun, or controlled transparency. Open any card for full specifications and shades.',
+    'eb-comp': 'Compare', 'comp-title': 'The whole catalog, side by side.',
+    'comp-lead': 'The data that is already verified. Thermal values will be published once we have the laboratory report.',
+    'eb-apps': 'Applications', 'apps-title': 'Which one fits your project?',
+    'eb-why': 'Why SOLARO', 'why-title': 'Serious distribution, not a pretty catalog.',
+    'why1-t': 'Stock on the floor', 'why1-d': 'Rolls of 1.52 × 30 m available in Guadalajara. No three-month wait for a container.',
+    'why2-t': 'Real technical support', 'why2-d': 'We help you pick the right shade based on façade orientation, glass type and how the space is used.',
+    'why3-t': 'Installer network', 'why3-d': 'If you do not install, we connect you with a certified installer in your area.',
+    'why4-t': 'Distributor pricing', 'why4-d': 'Volume terms for shops, contractors and architecture firms.',
+    'eb-dist': 'Global network', 'dist-title': 'Distributors.',
+    'eb-quote': 'Quote', 'quote-title': 'Tell us what you need.',
+    'quote-lead': 'Fill in the fields and WhatsApp opens with the message already written. We do not store your data on any server.',
+    'f-name': 'Name', 'f-product': 'Product of interest', 'f-type': 'Project type',
+    'f-m2': 'Approximate square meters', 'f-msg': 'Details',
+    'f-msg-ph': 'Façade orientation, glass type, city…',
+    'f-send': 'Send via WhatsApp',
+    'f-any': 'Not sure yet', 'f-t-res': 'Residential', 'f-t-corp': 'Corporate / office',
+    'f-t-int': 'Interiors / privacy', 'f-t-auto': 'Automotive', 'f-t-dist': 'I want to distribute',
+    'c-wa': 'WhatsApp', 'c-tel': 'Phone', 'c-mail': 'Email', 'c-city': 'Location', 'c-social': 'Social',
+    'foot-tag': 'High-performance window films. Distribution and technical support.',
+    'foot-nav': 'Navigation', 'foot-contact': 'Contact',
+    'foot-legal': 'Specifications may vary by batch and installation conditions.',
+    'wa-float': 'Quote',
+    'f-all': 'All', 'f-arch': 'Architectural', 'f-auto': 'Automotive', 'f-deco': 'Decorative',
+    'spec-title': 'Specifications', 'benefit-title': 'Benefits', 'tone-title': 'Available shades',
+    's-tec': 'Technology', 's-vlt': 'Visible light (VLT)', 's-uv': 'UV blocking', 's-ir': 'IR rejection',
+    's-tser': 'Total solar rejection (TSER)', 's-shgc': 'SHGC', 's-sc': 'Shading coefficient',
+    's-rollo': 'Roll', 's-gar': 'Warranty', 's-inst': 'Installation',
+    's-volt': 'Voltage', 's-cons': 'Power draw', 's-glare': 'Glare reduction',
+    'pending': 'To be confirmed',
+    'modal-cta': 'Quote this film', 'modal-close': 'Close',
+    'wa-generic': 'Hi, I am interested in the SOLARO catalog.',
+    'wa-product': 'Hi, I am interested in the film',
+    'no-wa': 'WhatsApp is not configured yet. Please email us in the meantime.',
+    'setup': 'WhatsApp number still needs to be set in products.js',
+    'setup-hide': 'Hide',
+    'th-product': 'Product', 'th-tones': 'Shades',
+    's-avail': 'Availability', 'av-stock': 'In stock', 'av-order': 'On order',
+    'eb-films': 'The films', 'stage-open': 'View data sheet', 'hero-scroll': 'Scroll',
+    'ir-note': 'IR rejection is measured at 1400 nm and is identical across the ceramic line. It is not the same as total heat rejection (TSER), which varies by shade.'
+  },
+  ja: {
+    'skip': 'カタログへスキップ',
+    'nav-cat': 'カタログ', 'nav-comp': '比較', 'nav-apps': '用途',
+    'nav-dist': '販売店', 'nav-quote': '見積り',
+    'hero-tag': '建築用・自動車用ガラスのための高性能フィルム。遮熱、プライバシー、調光技術。',
+    'hero-cta1': 'カタログを見る', 'hero-cta2': '見積りを依頼',
+    'm-uv': 'UV遮断', 'm-lines': 'セラミック濃度', 'm-roll': 'ロール幅', 'm-dist': '販売店のある国',
+    'eb-cat': 'カタログ',
+    'cat-title': '在庫2ライン、受注生産3ライン。',
+    'cat-lead': '各ラインが異なる課題を解決します。暗くせずに遮熱、プライバシー、直射日光のファサード、調光。カードを開くと仕様と濃度をご覧いただけます。',
+    'eb-comp': '比較', 'comp-title': 'カタログ全体を並べて比較。',
+    'comp-lead': '検証済みのデータのみ。熱性能値は試験機関のレポート取得後に公開します。',
+    'eb-apps': '用途', 'apps-title': 'どのフィルムが適していますか？',
+    'eb-why': 'SOLAROを選ぶ理由', 'why-title': '見た目だけでない、堅実な流通。',
+    'why1-t': '在庫を確保', 'why1-d': '1.52 × 30 mのロールをグアダラハラに在庫。コンテナを3か月待つ必要はありません。',
+    'why2-t': '実務的な技術サポート', 'why2-d': 'ファサードの方位、ガラスの種類、空間の用途に応じた濃度選定をサポートします。',
+    'why3-t': '施工店ネットワーク', 'why3-d': '施工をされない場合は、地域の認定施工店をご紹介します。',
+    'why4-t': '販売店価格', 'why4-d': '施工店、建設会社、設計事務所向けのボリューム価格。',
+    'eb-dist': 'グローバルネットワーク', 'dist-title': '販売店。',
+    'eb-quote': '見積り', 'quote-title': 'ご要望をお聞かせください。',
+    'quote-lead': '入力するとWhatsAppがメッセージ入りで開きます。データはサーバーに保存されません。',
+    'f-name': 'お名前', 'f-product': 'ご関心のある製品', 'f-type': 'プロジェクト種別',
+    'f-m2': 'おおよその平方メートル', 'f-msg': '詳細',
+    'f-msg-ph': 'ファサードの方位、ガラスの種類、都市など…',
+    'f-send': 'WhatsAppで送信',
+    'f-any': 'まだ未定', 'f-t-res': '住宅', 'f-t-corp': 'オフィス',
+    'f-t-int': 'インテリア／プライバシー', 'f-t-auto': '自動車', 'f-t-dist': '販売店になりたい',
+    'c-wa': 'WhatsApp', 'c-tel': '電話', 'c-mail': 'メール', 'c-city': '所在地', 'c-social': 'SNS',
+    'foot-tag': 'ガラス用高性能フィルム。流通と技術サポート。',
+    'foot-nav': 'ナビゲーション', 'foot-contact': 'お問い合わせ',
+    'foot-legal': '仕様はロットおよび施工条件により異なる場合があります。',
+    'wa-float': '見積り',
+    'f-all': 'すべて', 'f-arch': '建築用', 'f-auto': '自動車用', 'f-deco': '装飾用',
+    'spec-title': '仕様', 'benefit-title': '特長', 'tone-title': '濃度ラインナップ',
+    's-tec': '技術', 's-vlt': '可視光線透過率（VLT）', 's-uv': 'UV遮断', 's-ir': '赤外線遮断',
+    's-tser': '総日射遮蔽率（TSER）', 's-shgc': 'SHGC', 's-sc': '遮蔽係数',
+    's-rollo': 'ロール', 's-gar': '保証', 's-inst': '施工',
+    's-volt': '電圧', 's-cons': '消費電力', 's-glare': 'まぶしさ低減',
+    'pending': '確認中',
+    'modal-cta': 'このフィルムの見積り', 'modal-close': '閉じる',
+    'wa-generic': 'SOLAROのカタログに興味があります。',
+    'wa-product': '次のフィルムに興味があります:',
+    'no-wa': 'WhatsAppは未設定です。当面はメールでご連絡ください。',
+    'setup': 'products.js にWhatsApp番号を設定してください',
+    'setup-hide': '非表示',
+    'th-product': '製品', 'th-tones': '濃度',
+    's-avail': '在庫状況', 'av-stock': '在庫あり', 'av-order': '受注生産',
+    'eb-films': 'フィルム', 'stage-open': '技術資料を見る', 'hero-scroll': 'スクロール',
+    'ir-note': '赤外線遮断率は1400 nmで測定され、セラミックライン全体で同一です。濃度により変わる総遮熱率（TSER）とは異なります。'
   }
 };
 
-// ═══════════════════════════════════════════════════
-// LANGUAGE SYSTEM
-// ═══════════════════════════════════════════════════
-let curLang = 'en';
-let userChoseLang = false;
+let LANG = 'es';
+let FILTRO = 'todo';
 
-function setLang(lang) {
-  if (lang === curLang) return;
-  curLang = lang;
-  document.documentElement.lang = lang;
-  document.body.setAttribute('data-lang', lang);
+const t   = k => (I18N[LANG] && I18N[LANG][k]) || I18N.es[k] || k;
+const tx  = v => (typeof v === 'object' && v !== null) ? (v[LANG] || v.es) : v;
+const ok  = v => { const s = tx(v); return s && String(s).trim() !== '' && String(s).toUpperCase() !== 'PENDIENTE'; };
+const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));
+const $   = s => document.querySelector(s);
 
-  document.querySelectorAll('[data-i18n]').forEach(el => {
-    const key = el.getAttribute('data-i18n');
-    if (I18N[lang]?.[key]) {
-      const currentText = el.textContent;
-      const newText = I18N[lang][key];
-      if (currentText === newText) return;
-      gsap.to(el, {
-        opacity: 0, duration: 0.15, ease: 'power2.out',
-        onComplete: () => {
-          el.textContent = newText;
-          gsap.fromTo(el, { opacity: 0 }, { opacity: 1, duration: 0.25, ease: 'power2.out' });
-        }
-      });
-    }
-  });
-
-  document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
-  updateWA();
-  if (userChoseLang) {
-    try { localStorage.setItem('solaro-lang', lang); } catch(e) {}
+/* ─── Color aproximado de un tono según su VLT (solo ilustrativo) ─── */
+function swatch(vlt, familia) {
+  if (vlt === null || vlt === undefined) {
+    if (familia === 'decorativa')  return 'linear-gradient(135deg,#dfe6ea,#c3ced5)';
+    if (familia === 'inteligente') return 'linear-gradient(135deg,#8fb3c9 0%,#8fb3c9 48%,#e9eef1 52%,#e9eef1 100%)';
+    return '#8fa3ae';
   }
+  const a = Math.max(0.06, Math.min(0.9, 1 - vlt / 100));
+  if (familia === 'reflectiva') return `linear-gradient(135deg, rgba(150,168,180,${a + 0.1}), rgba(96,112,124,${a}))`;
+  if (familia === 'carbono')    return `rgba(24,26,28,${a})`;
+  return `rgba(56,74,88,${a})`;
 }
 
-function updateWA() {
-  const m = encodeURIComponent(I18N[curLang]?.['wa-msg'] || I18N.en['wa-msg']);
-  document.getElementById('waFloat').href = `https://wa.me/523312345678?text=${m}`;
+/* ═══ WHATSAPP ═══════════════════════════════════════════════ */
+
+const waListo = () => ok(CONTACTO.whatsapp) && /^\d{8,15}$/.test(String(CONTACTO.whatsapp).trim());
+
+function waLink(msg) {
+  if (!waListo()) return null;
+  return `https://wa.me/${String(CONTACTO.whatsapp).trim()}?text=${encodeURIComponent(msg)}`;
 }
 
-function openWA() {
-  const m = encodeURIComponent(I18N[curLang]?.['wa-msg'] || I18N.en['wa-msg']);
-  window.open(`https://wa.me/523312345678?text=${m}`, '_blank');
+function abrirWA(msg) {
+  const url = waLink(msg);
+  if (!url) {
+    const note = $('#formNote');
+    if (note) { note.textContent = t('no-wa'); note.style.color = 'var(--accent)'; }
+    location.hash = '#cotizar';
+    return;
+  }
+  window.open(url, '_blank', 'noopener');
 }
 
-// ═══════════════════════════════════════════════════
-// PAGE NAVIGATION
-// ═══════════════════════════════════════════════════
-function switchPage(pageId) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  const target = document.getElementById('page-' + pageId);
-  if (target) {
-    target.classList.add('active');
-    if (window.lenis) {
-      window.lenis.scrollTo(0, { duration: 1, easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
-    }
-  }
-  document.querySelectorAll('.nav-page-link').forEach(l => {
-    l.classList.toggle('active', l.dataset.page === pageId);
-  });
-  window.history.replaceState(null, '', '#' + pageId);
-}
+/* ═══ RENDER: CATÁLOGO ═══════════════════════════════════════ */
 
-// ═══════════════════════════════════════════════════
-// COUNTRY → LANGUAGE MAPPING
-// ═══════════════════════════════════════════════════
-const COUNTRY_MAP = {
-  MX:'es', ES:'es', AR:'es', BO:'es', BR:'es', CL:'es', CO:'es', CR:'es',
-  CU:'es', DO:'es', EC:'es', SV:'es', GT:'es', HN:'es', PY:'es', PE:'es',
-  PR:'es', UY:'es', VE:'es', PA:'es', NI:'es', BZ:'es', GQ:'es',
-  JP:'ja',
-  US:'en', CA:'en', GB:'en', AU:'en', NZ:'en', IE:'en', ZA:'en', IN:'en',
-  PH:'en', SG:'en', MY:'en'
-};
-
-// ═══════════════════════════════════════════════════
-// LANGUAGE DETECTION
-// ═══════════════════════════════════════════════════
-(async function detectLanguage() {
-  // 1. Saved preference
-  try {
-    const saved = localStorage.getItem('solaro-lang');
-    if (saved && ['ja','es','en'].includes(saved)) { setLang(saved); return; }
-  } catch(e) {}
-
-  // 2. IP geolocation (1.5s timeout)
-  try {
-    const ctrl = new AbortController();
-    setTimeout(() => ctrl.abort(), 1500);
-    const resp = await fetch('https://ipapi.co/json/', { signal: ctrl.signal });
-    const data = await resp.json();
-    if (data.country_code) {
-      const lang = COUNTRY_MAP[data.country_code] || 'en';
-      setLang(lang);
-      return;
-    }
-  } catch(e) {}
-
-  // 3. Browser locale
-  const navLang = (navigator.language || navigator.userLanguage || 'en').toLowerCase();
-  if (navLang.startsWith('ja')) { setLang('ja'); return; }
-  if (navLang.startsWith('es')) { setLang('es'); return; }
-
-  // 4. Fallback
-  setLang('en');
-})();
-
-// ═══════════════════════════════════════════════════
-// ANIMATION HELPER
-// ═══════════════════════════════════════════════════
-function animateNum(el, from, to, dur) {
-  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (reduced) { el.textContent = to; return; }
-  const start = performance.now();
-  function tick(now) {
-    const p = Math.min((now - start) / dur, 1);
-    const ease = 1 - Math.pow(1 - p, 3);
-    el.textContent = Math.round(from + (to - from) * ease);
-    if (p < 1) requestAnimationFrame(tick);
-  }
-  requestAnimationFrame(tick);
-}
-
-// ═══════════════════════════════════════════════════
-// MAIN INITIALIZATION
-// ═══════════════════════════════════════════════════
-document.addEventListener('DOMContentLoaded', () => {
-
-  // Initialize with English defaults
-  document.querySelectorAll('[data-i18n]').forEach(el => {
-    const key = el.getAttribute('data-i18n');
-    if (I18N.en[key]) el.textContent = I18N.en[key];
-  });
-
-  // Handle URL hash on load
-  const hash = window.location.hash.replace('#', '');
-  if (hash && document.getElementById('page-' + hash)) {
-    switchPage(hash);
-  }
-
-  // Bind all language buttons
-  document.querySelectorAll('.lang-btn').forEach(b => {
-    b.addEventListener('click', () => {
-      userChoseLang = true;
-      setLang(b.dataset.lang);
-    });
-  });
-
-  // Page navigation
-  document.querySelectorAll('.nav-page-link').forEach(link => {
-    link.addEventListener('click', e => {
-      e.preventDefault();
-      const targetPage = link.dataset.page;
-      switchPage(targetPage);
-    });
-  });
-
-  // ─── LENIS SMOOTH SCROLL ───
-  const lenis = new Lenis({
-    duration: 1.4,
-    easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-    smoothWheel: true
-  });
-  window.lenis = lenis;
-
-  function raf(t) { lenis.raf(t); requestAnimationFrame(raf); }
-  requestAnimationFrame(raf);
-
-  // ─── GSAP ───
-  gsap.registerPlugin(ScrollTrigger);
-  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  // ─── HERO ANIMATION ───
-  const heroTl = gsap.timeline({ delay: 0.2 });
-  heroTl.fromTo('#heroContent', { opacity: 0, y: 80 }, { opacity: 1, y: 0, duration: 1.6, ease: 'power2.out' })
-    .fromTo('#heroLine', { height: 0 }, { height: 60, duration: 1, ease: 'power2.out' }, '-=0.8')
-    .fromTo('.hero-scroll-hint', { opacity: 0 }, { opacity: 1, duration: 0.8 }, '-=0.4');
-
-  // Hero parallax (desktop)
-  if (!reduced && window.innerWidth > 768) {
-    const glow = document.getElementById('heroGlow');
-    document.addEventListener('mousemove', e => {
-      const x = (e.clientX / window.innerWidth - 0.5) * 40;
-      const y = (e.clientY / window.innerHeight - 0.5) * 40;
-      gsap.to(glow, { x, y, duration: 1.2, ease: 'power2.out' });
-    });
-  }
-
-  // ─── SCROLL PROGRESS DOTS ───
-  const sections = ['hero','glass-seq','heat','uv','privacy','products','metrics','cta'];
-  const progressEl = document.getElementById('scrollProgress');
-  sections.forEach(id => {
-    const dot = document.createElement('div');
-    dot.className = 'scroll-dot';
-    dot.dataset.section = id;
-    progressEl.appendChild(dot);
-  });
-
-  // ─── NAV SHOW/HIDE ───
-  const nav = document.getElementById('navPill');
-  let lastY = 0, navUp = true;
-  lenis.on('scroll', ({ scrollY }) => {
-    if (scrollY > 100) {
-      if (!nav.classList.contains('show')) { nav.classList.add('show'); nav.classList.remove('hide'); }
-      if (scrollY > lastY && navUp) { nav.classList.add('hide'); navUp = false; }
-      else if (scrollY < lastY && !navUp) { nav.classList.remove('hide'); navUp = true; }
-    } else {
-      nav.classList.remove('show'); nav.classList.add('hide');
-    }
-    lastY = scrollY;
-
-    // Update scroll dots
-    sections.forEach(id => {
-      const el = document.getElementById(id);
-      if (el) {
-        const rect = el.getBoundingClientRect();
-        const dot = progressEl.querySelector(`[data-section="${id}"]`);
-        if (dot) dot.classList.toggle('active', rect.top < window.innerHeight * 0.5 && rect.bottom > window.innerHeight * 0.5);
-      }
-    });
-  });
-
-  // ─── CURSOR SPOT ───
-  const spot = document.getElementById('cursorSpot');
-  if (window.innerWidth > 768 && !reduced) {
-    document.addEventListener('mousemove', e => {
-      gsap.to(spot, { left: e.clientX, top: e.clientY, duration: 0.6, ease: 'power2.out' });
-    });
-  } else { spot.style.display = 'none'; }
-
-  // ═══════════════════════════════════════════════════
-  // GLASS TRANSFORMATION SEQUENCE
-  // ═══════════════════════════════════════════════════
-  const states = [
-    { name: 'glass-state-0', tint: 0, refl: 'rgba(255,255,255,0.02) 0%, rgba(255,255,255,0.01) 50%', frost: 0, pdlc: 0, specular: 0.05 },
-    { name: 'glass-state-1', tint: 0.08, refl: 'rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.02) 50%', frost: 0, pdlc: 0, specular: 0.08 },
-    { name: 'glass-state-2', tint: 0.35, refl: 'rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 50%', frost: 0, pdlc: 0, specular: 0.06 },
-    { name: 'glass-state-3', tint: 0.25, refl: 'rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.06) 45%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0.04) 100%', frost: 0, pdlc: 0, specular: 0.15 },
-    { name: 'glass-state-4', tint: 0.1, refl: 'rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.03) 50%', frost: 8, pdlc: 0, specular: 0.04 },
-    { name: 'glass-state-5', tint: 0.05, refl: 'rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.03) 50%', frost: 2, pdlc: 1, specular: 0.1 }
+function renderFiltros() {
+  const defs = [
+    { id: 'todo',           key: 'f-all'   },
+    { id: 'arquitectonica', key: 'f-arch'  },
+    { id: 'automotriz',     key: 'f-auto'  },
+    { id: 'decorativa',     key: 'f-deco'  }
   ];
+  $('#filters').innerHTML = defs.map(d =>
+    `<button class="filter${FILTRO === d.id ? ' active' : ''}" data-filtro="${d.id}">${esc(t(d.key))}</button>`
+  ).join('');
+}
 
-  const stops = [0, 0.18, 0.36, 0.54, 0.72, 0.9];
-  const labelKeys = ['glass-0','glass-1','glass-2','glass-3','glass-4','glass-5'];
-  const stateKeys = ['glass-state-0','glass-state-1','glass-state-2','glass-state-3','glass-state-4','glass-state-5'];
+function renderCatalogo() {
+  $('#catalog').innerHTML = PRODUCTOS.map(p => {
+    const visible = FILTRO === 'todo' || p.categorias.includes(FILTRO);
+    const tonos = p.tonos.map(tn =>
+      `<span class="tono">${esc(tn.nombre)}${tn.vlt != null ? ` · ${tn.vlt}%` : ''}</span>`
+    ).join('');
+    const esPedido = p.disponibilidad === 'pedido';
+    const badge = esPedido
+      ? `<span class="card-badge badge-order">${esc(t('av-order'))}</span>`
+      : (p.badge ? `<span class="card-badge">${esc(tx(p.badge))}</span>` : '');
+    return `
+      <button class="card${visible ? '' : ' is-hidden'}" data-id="${p.id}" aria-label="${esc(p.nombre)}">
+        <div class="card-media">
+          ${badge}
+          <img src="${p.imgSm}" alt="${esc(p.nombre)}" loading="lazy" width="900" height="900">
+        </div>
+        <div class="card-body">
+          <h3 class="card-name">${esc(p.nombre)}</h3>
+          <p class="card-claim">${esc(tx(p.claim))}</p>
+          <div class="tono-row">${tonos}</div>
+          <span class="card-cta">${esc(t('modal-cta'))}
+            <svg width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M9 1l4 4-4 4M13 5H0" stroke="currentColor" stroke-width="1.4"/></svg>
+          </span>
+        </div>
+      </button>`;
+  }).join('');
+}
 
-  const gTint = document.getElementById('glassTint');
-  const gRefl = document.getElementById('glassReflection');
-  const gFrost = document.getElementById('glassFrost');
-  const gPdlc = document.getElementById('glassPdlc');
-  const gSpec = document.getElementById('glassSpecular');
-  const gLabel = document.getElementById('glassLabel');
-  const gStateName = document.getElementById('glassStateName');
+/* ═══ RENDER: FICHA TÉCNICA (MODAL) ══════════════════════════ */
 
-  let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
-  document.addEventListener('mousemove', e => { mouseX = e.clientX; mouseY = e.clientY; });
+function filaSpec(label, valor) {
+  if (!ok(valor)) return `<tr><th>${esc(label)}</th><td class="spec-pending">${esc(t('pending'))}</td></tr>`;
+  return `<tr><th>${esc(label)}</th><td>${esc(tx(valor))}</td></tr>`;
+}
 
-  if (!reduced) {
-    ScrollTrigger.create({
-      trigger: '.glass-sequence',
-      start: 'top top',
-      end: 'bottom bottom',
-      pin: '.glass-sequence-inner',
-      pinSpacing: true,
-      scrub: 0.8,
-      onUpdate: function(self) {
-        const p = Math.max(0, Math.min(1, self.progress));
-        let idx = 0;
-        for (let i = stops.length - 1; i >= 0; i--) { if (p >= stops[i]) { idx = i; break; } }
-        const next = Math.min(idx + 1, states.length - 1);
-        const seg = stops[next] - stops[idx] || 1;
-        const t = (p - stops[idx]) / seg;
-        const lerp = (a, b) => a + (b - a) * t;
+function abrirFicha(id) {
+  const p = PRODUCTOS.find(x => x.id === id);
+  if (!p) return;
 
-        const s = states[idx], s2 = states[next];
-        gTint.style.background = `rgba(42,43,45,${lerp(s.tint, s2.tint)})`;
-        gFrost.style.backdropFilter = `blur(${lerp(s.frost, s2.frost)}px)`;
-        gFrost.style.webkitBackdropFilter = `blur(${lerp(s.frost, s2.frost)}px)`;
-        gPdlc.style.opacity = lerp(s.pdlc, s2.pdlc);
-        gPdlc.classList.toggle('active', lerp(s.pdlc, s2.pdlc) > 0.3);
-        gSpec.style.opacity = lerp(s.specular, s2.specular);
+  $('#modalImg').src = p.img;
+  $('#modalImg').alt = p.nombre;
 
-        const key = labelKeys[idx];
-        gLabel.textContent = I18N[curLang]?.[key] || I18N.en[key];
+  const s = p.specs || {};
+  let filas = '';
+  filas += filaSpec(t('s-tec'),   s.tecnologia);
+  filas += filaSpec(t('s-vlt'),   s.vlt);
+  filas += filaSpec(t('s-uv'),    s.uv);
+  if (typeof MOSTRAR_IR !== 'undefined' && MOSTRAR_IR && ok(s.ir)) {
+    filas += filaSpec(t('s-ir'), s.ir);
+  }
+  if (typeof MOSTRAR_SHGC !== 'undefined' && MOSTRAR_SHGC) {
+    filas += filaSpec(t('s-tser'), s.tser);
+    filas += filaSpec(t('s-shgc'), s.shgc);
+    filas += filaSpec(t('s-sc'),   s.sc);
+  }
+  if (s.voltaje !== undefined) filas += filaSpec(t('s-volt'), s.voltaje);
+  if (s.consumo !== undefined) filas += filaSpec(t('s-cons'), s.consumo);
+  filas += filaSpec(t('s-rollo'), s.rollo);
+  filas += filaSpec(t('s-gar'),   s.garantia);
+  filas += filaSpec(t('s-inst'),  s.instalacion);
+  filas += `<tr><th>${esc(t('s-avail'))}</th><td>${esc(t(p.disponibilidad === 'stock' ? 'av-stock' : 'av-order'))}</td></tr>`;
 
-        const stateKey = stateKeys[idx];
-        gStateName.textContent = I18N[curLang]?.[stateKey] || I18N.en[stateKey];
-        gStateName.style.opacity = Math.sin(t * Math.PI) * 0.5;
+  const beneficios = (tx(p.beneficios) || [])
+    .map(b => `<li>${esc(b)}</li>`).join('');
 
-        // Mouse-reactive reflection
-        const glass = document.getElementById('mainGlass');
-        if (glass) {
-          const rect = glass.getBoundingClientRect();
-          const cx = (mouseX / window.innerWidth - 0.5) * rect.width * 0.3;
-          const cy = (mouseY / window.innerHeight - 0.5) * rect.height * 0.3;
-          gRefl.style.background = `radial-gradient(ellipse at ${50 + cx/rect.width*100}% ${50 + cy/rect.height*100}%, rgba(255,255,255,${0.04 + lerp(s.specular, s2.specular)}) 0%, transparent 60%), linear-gradient(135deg, ${s.refl})`;
-        }
-      }
-    });
-  } else {
-    ScrollTrigger.create({
-      trigger: '.glass-sequence', start: 'top top', end: 'bottom bottom',
-      pin: '.glass-sequence-inner', pinSpacing: true
-    });
+  const tonos = p.tonos.map(tn => `
+    <div class="tono-scale-row">
+      <span class="tono-swatch" style="background:${swatch(tn.vlt, p.familia)}"></span>
+      <span class="tono-scale-name">${esc(tn.nombre)}</span>
+      ${tn.sub ? `<span class="tono-scale-vlt">${esc(tx(tn.sub))}</span>` : ''}
+      ${tn.vlt != null ? `<span class="tono-scale-vlt">VLT ${tn.vlt}%</span>` : ''}
+    </div>`).join('');
+
+  const nota = p.nota ? `<div class="modal-note">${esc(tx(p.nota))}</div>` : '';
+
+  $('#modalBody').innerHTML = `
+    <h2 class="modal-name" id="modalName">${esc(p.nombre)}</h2>
+    <p class="modal-claim">${esc(tx(p.claim))}</p>
+    <p class="modal-desc">${esc(tx(p.desc))}</p>
+    <div class="modal-cols">
+      <div>
+        <div class="block-label">${esc(t('spec-title'))}</div>
+        <table class="spec-table"><tbody>${filas}</tbody></table>
+        ${(typeof MOSTRAR_IR !== 'undefined' && MOSTRAR_IR && ok(s.ir)) ? `<p class="spec-foot">${esc(t('ir-note'))}</p>` : ''}
+        <div class="block-label" style="margin-top:2rem">${esc(t('tone-title'))}</div>
+        <div class="tono-scale">${tonos}</div>
+      </div>
+      <div>
+        <div class="block-label">${esc(t('benefit-title'))}</div>
+        <ul class="benefit-list">${beneficios}</ul>
+        ${nota}
+      </div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-wa" data-wa="${esc(p.nombre)}">${esc(t('modal-cta'))}</button>
+      <button class="btn btn-ghost" data-close>${esc(t('modal-close'))}</button>
+    </div>`;
+
+  $('#modal').classList.add('open');
+  document.body.classList.add('no-scroll');
+  $('#modalPanel').scrollTop = 0;
+  $('.modal-close').focus();
+}
+
+function cerrarFicha() {
+  $('#modal').classList.remove('open');
+  document.body.classList.remove('no-scroll');
+}
+
+/* ═══ RENDER: COMPARATIVA ════════════════════════════════════ */
+
+function renderComparativa() {
+  const filas = [
+    { key: 's-tec',   get: p => p.specs.tecnologia },
+    { key: 's-vlt',   get: p => p.specs.vlt },
+    { key: 's-uv',    get: p => p.specs.uv },
+    { key: 's-rollo', get: p => p.specs.rollo },
+    { key: 's-gar',   get: p => p.specs.garantia }
+  ];
+  if (typeof MOSTRAR_IR !== 'undefined' && MOSTRAR_IR) {
+    filas.splice(3, 0, { key: 's-ir', get: p => p.specs.ir });
+  }
+  if (typeof MOSTRAR_SHGC !== 'undefined' && MOSTRAR_SHGC) {
+    filas.splice(4, 0,
+      { key: 's-tser', get: p => p.specs.tser },
+      { key: 's-shgc', get: p => p.specs.shgc });
+  }
+  filas.push({ key: 's-avail', get: p => t(p.disponibilidad === 'stock' ? 'av-stock' : 'av-order') });
+
+  const head = `<thead><tr><th>${esc(t('th-product'))}</th>${
+    PRODUCTOS.map(p => `<th>${esc(p.nombre)}</th>`).join('')}</tr></thead>`;
+
+  const tonosRow = `<tr><th>${esc(t('th-tones'))}</th>${
+    PRODUCTOS.map(p => `<td>${p.tonos.map(x => esc(x.nombre.replace(/^(NC\d+|CarbonX |ReflectX |IRX )/, m => m.trim()))).join('<br>')}</td>`).join('')}</tr>`;
+
+  const body = `<tbody>${tonosRow}${filas.map(f =>
+    `<tr><th>${esc(t(f.key))}</th>${PRODUCTOS.map(p => {
+      const v = f.get(p);
+      return ok(v) ? `<td>${esc(tx(v))}</td>` : `<td class="spec-pending">—</td>`;
+    }).join('')}</tr>`).join('')}</tbody>`;
+
+  $('#compare').innerHTML = head + body;
+}
+
+/* ═══ RENDER: APLICACIONES / DISTRIBUIDORES / CONTACTO ═══════ */
+
+function renderApps() {
+  $('#apps').innerHTML = APLICACIONES.map((a, i) => {
+    const recs = a.recomendado.map(id => {
+      const p = PRODUCTOS.find(x => x.id === id);
+      return p ? `<span class="app-rec-item">${esc(p.nombre)}</span>` : '';
+    }).join('');
+    return `
+      <article class="app-card reveal">
+        <div class="app-num">0${i + 1}</div>
+        <h3 class="app-title">${esc(tx(a.titulo))}</h3>
+        <p class="app-desc">${esc(tx(a.desc))}</p>
+        <div class="app-rec">${recs}</div>
+      </article>`;
+  }).join('');
+}
+
+function renderDist() {
+  $('#dist').innerHTML = DISTRIBUIDORES.map(d => `
+    <div class="dist-item">
+      <div class="dist-pais">${esc(tx(d.pais))}</div>
+      <div class="dist-nombre">${esc(d.nombre)}</div>
+    </div>`).join('');
+}
+
+function renderContacto() {
+  const wa = waLink(t('wa-generic'));
+  const cWa = $('#cWa');
+  cWa.textContent = wa ? '+' + CONTACTO.whatsapp : t('pending');
+  cWa.href = wa || '#cotizar';
+
+  const cTel = $('#cTel');
+  cTel.textContent = ok(CONTACTO.telefono) ? CONTACTO.telefono : t('pending');
+  cTel.href = ok(CONTACTO.telefono) ? 'tel:' + String(CONTACTO.telefono).replace(/[^\d+]/g, '') : '#cotizar';
+
+  const cMail = $('#cMail');
+  cMail.textContent = CONTACTO.email; cMail.href = 'mailto:' + CONTACTO.email;
+  $('#cCity').textContent = CONTACTO.ciudad;
+  $('#cIg').href = CONTACTO.instagram;
+  $('#cFb').href = CONTACTO.facebook;
+
+  $('#footContact').innerHTML = `
+    <a href="mailto:${esc(CONTACTO.email)}">${esc(CONTACTO.email)}</a>
+    ${ok(CONTACTO.telefono) ? `<a href="tel:${esc(String(CONTACTO.telefono).replace(/[^\d+]/g, ''))}">${esc(CONTACTO.telefono)}</a>` : ''}
+    <a href="${esc(CONTACTO.instagram)}" target="_blank" rel="noopener">Instagram</a>
+    <a href="${esc(CONTACTO.facebook)}" target="_blank" rel="noopener">Facebook</a>`;
+
+  const waFloat = $('#waFloat');
+  if (wa) { waFloat.href = wa; waFloat.target = '_blank'; waFloat.rel = 'noopener'; }
+  else    { waFloat.href = '#cotizar'; waFloat.removeAttribute('target'); }
+}
+
+/* ═══ FORMULARIO ═════════════════════════════════════════════ */
+
+function renderSelects() {
+  const prev1 = $('#qProducto').value, prev2 = $('#qTipo').value;
+  $('#qProducto').innerHTML =
+    `<option value="">${esc(t('f-any'))}</option>` +
+    PRODUCTOS.map(p => `<option value="${esc(p.nombre)}">${esc(p.nombre)}</option>`).join('');
+  $('#qTipo').innerHTML = ['f-t-res', 'f-t-corp', 'f-t-int', 'f-t-auto', 'f-t-dist']
+    .map(k => `<option value="${esc(t(k))}">${esc(t(k))}</option>`).join('');
+  if (prev1) $('#qProducto').value = prev1;
+  if (prev2) $('#qTipo').value = prev2;
+}
+
+function enviarForm(e) {
+  e.preventDefault();
+  const f = e.target;
+  const nombre = f.nombre.value.trim();
+  const note = $('#formNote');
+
+  if (!nombre) {
+    note.textContent = t('f-name') + ' —';
+    note.style.color = 'var(--accent)';
+    f.nombre.focus();
+    return;
   }
 
-  // ─── HEAT SECTION ───
-  if (!reduced) {
-    const heatTl = gsap.timeline({
-      scrollTrigger: { trigger: '.heat-section', start: 'top 60%', end: 'bottom 40%', scrub: 1 }
-    });
-    heatTl.to('.heat-ray', { opacity: 0.5, duration: 0.3, stagger: 0.05 })
-           .to('#heatBarFill', { width: '93%', duration: 0.5 }, 0.4);
+  const partes = [
+    `${t('wa-generic')}`,
+    ``,
+    `${t('f-name')}: ${nombre}`,
+    f.producto.value ? `${t('f-product')}: ${f.producto.value}` : null,
+    `${t('f-type')}: ${f.tipo.value}`,
+    f.metros.value.trim() ? `${t('f-m2')}: ${f.metros.value.trim()} m²` : null,
+    f.mensaje.value.trim() ? `${t('f-msg')}: ${f.mensaje.value.trim()}` : null
+  ].filter(Boolean);
 
-    ScrollTrigger.create({
-      trigger: '.heat-section', start: 'top 60%', end: 'bottom 40%', scrub: 1,
-      onUpdate: function(self) {
-        const temp = Math.round(38 - (38 - 24) * self.progress);
-        document.getElementById('heatTemp').textContent = temp + '°C';
-      }
-    });
-  } else {
-    document.querySelectorAll('.heat-ray').forEach(r => r.style.opacity = 0);
-    document.getElementById('heatBarFill').style.width = '93%';
-    document.getElementById('heatTemp').textContent = '24°C';
+  abrirWA(partes.join('\n'));
+}
+
+/* ═══ IDIOMA ═════════════════════════════════════════════════ */
+
+function aplicarIdioma(lang) {
+  LANG = I18N[lang] ? lang : 'es';
+  document.documentElement.lang = LANG;
+  try { localStorage.setItem('solaro-lang', LANG); } catch (e) {}
+
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const v = t(el.dataset.i18n);
+    if (v) el.textContent = v;
+  });
+  document.querySelectorAll('[data-i18n-ph]').forEach(el => {
+    const v = t(el.dataset.i18nPh);
+    if (v) el.placeholder = v;
+  });
+  document.querySelectorAll('.lang-btn').forEach(b =>
+    b.classList.toggle('active', b.dataset.lang === LANG));
+
+  renderFiltros();
+  renderCatalogo();
+  renderComparativa();
+  renderApps();
+  renderDist();
+  renderContacto();
+  renderSelects();
+  if (Stage.i >= 0) { const n = Stage.i; Stage.i = -1; Stage.pintar(n, true); }
+  avisoSetup();
+  observarReveal();
+}
+
+/* ═══ AVISO DE CONFIGURACIÓN PENDIENTE ═══════════════════════ */
+
+function avisoSetup() {
+  const viejo = document.getElementById('setupNotice');
+  if (viejo) viejo.remove();
+  if (waListo()) return;
+  const div = document.createElement('div');
+  div.className = 'setup-notice';
+  div.id = 'setupNotice';
+  div.innerHTML = `<span>⚠️ <strong>${esc(t('setup'))}</strong></span>
+    <button type="button">${esc(t('setup-hide'))}</button>`;
+  div.querySelector('button').onclick = () => div.remove();
+  document.body.appendChild(div);
+}
+
+/* ═══ ANIMACIÓN DE ENTRADA ═══════════════════════════════════ */
+
+let io;
+function observarReveal() {
+  if (!('IntersectionObserver' in window)) {
+    document.querySelectorAll('.reveal').forEach(el => el.classList.add('in'));
+    return;
   }
+  if (io) io.disconnect();
+  io = new IntersectionObserver(entries => {
+    entries.forEach(en => { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } });
+  }, { rootMargin: '0px 0px -8% 0px' });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+}
 
-  // ─── UV SECTION ───
-  if (!reduced) {
-    ScrollTrigger.create({
-      trigger: '.uv-section', start: 'top 50%', end: 'bottom 50%', scrub: 1,
-      onUpdate: function(self) {
-        document.getElementById('uvBlockLine').style.opacity = Math.min(1, self.progress * 3);
-        const val = Math.round(99 * Math.min(1, self.progress * 1.5));
-        document.getElementById('uvNumber').textContent = val;
-      }
-    });
-  } else {
-    document.getElementById('uvBlockLine').style.opacity = 1;
-    document.getElementById('uvNumber').textContent = '99';
-  }
 
-  // ─── PRIVACY SECTION ───
-  if (!reduced) {
-    ScrollTrigger.create({
-      trigger: '.privacy-section', start: 'top 40%', end: 'bottom 40%', scrub: 1,
-      onUpdate: function(self) {
-        const darkness = Math.min(0.85, self.progress * 2);
-        document.getElementById('privacyDarkness').style.background = `rgba(18,19,20,${darkness})`;
-        if (self.progress > 0.6) {
-          document.getElementById('privacyGlass').classList.add('flipped');
-        } else {
-          document.getElementById('privacyGlass').classList.remove('flipped');
-        }
-      }
-    });
-  }
+/* ═══════════════════════════════════════════════════════════════
+   SECUENCIA DE PELÍCULAS
+   La sección mide (n+1) pantallas de alto. El panel de adentro se
+   queda pegado (sticky) y el scroll sólo cambia cuál película se
+   ve en el cuadro: no se apilan fotos, se intercambian en su lugar.
+   ═══════════════════════════════════════════════════════════════ */
 
-  // ─── METRICS COUNT UP ───
-  if (!reduced) {
-    document.querySelectorAll('.metric-val').forEach(el => {
-      const target = parseInt(el.dataset.target);
-      ScrollTrigger.create({
-        trigger: el, start: 'top 80%', once: true,
-        onEnter: () => animateNum(el, 0, target, 2000)
-      });
-    });
-    document.querySelectorAll('.metric-bar-fill').forEach(el => {
-      ScrollTrigger.create({
-        trigger: el, start: 'top 85%', once: true,
-        onEnter: () => { el.style.width = el.dataset.fill + '%'; }
-      });
-    });
-  } else {
-    document.querySelectorAll('.metric-val').forEach(el => el.textContent = el.dataset.target);
-    document.querySelectorAll('.metric-bar-fill').forEach(el => el.style.width = el.dataset.fill + '%');
-  }
+const Stage = {
+  i: -1,
+  activo: false,
 
-  // ─── PRODUCT CATEGORIES REVEAL ───
-  document.querySelectorAll('.product-cat').forEach(sec => {
-    const name = sec.querySelector('.product-cat-name');
-    const desc = sec.querySelector('.product-cat-desc');
-    const glass = sec.querySelector('.product-cat-glass');
+  soportado() {
+    if (!window.matchMedia) return false;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return false;
+    return CSS.supports('position', 'sticky') || CSS.supports('position', '-webkit-sticky');
+  },
 
-    if (!reduced) {
-      const tl = gsap.timeline({
-        scrollTrigger: { trigger: sec, start: 'top 65%', end: 'top 30%', scrub: 1 }
-      });
-      if (name) tl.fromTo(name, { opacity: 0, x: -60 }, { opacity: 1, x: 0 });
-      if (desc) tl.fromTo(desc, { opacity: 0, y: 30 }, { opacity: 1, y: 0 }, '-=0.3');
-      if (glass) tl.fromTo(glass, { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1 }, '-=0.4');
-    } else {
-      if (name) { name.style.opacity = 1; name.style.transform = 'none'; }
-      if (desc) { desc.style.opacity = 1; desc.style.transform = 'none'; }
-      if (glass) { glass.style.opacity = 1; glass.style.transform = 'none'; }
+  montar() {
+    const sec = $('#peliculas');
+    if (!sec) return;
+
+    // Capas de imagen — una por película, apiladas en el mismo cuadro
+    $('#stageLayers').innerHTML = PRODUCTOS.map((p, n) => `
+      <div class="filmstage-layer${n === 0 ? ' active' : ''}" data-n="${n}">
+        <img src="${p.img}" alt="${esc(p.nombre)}" ${n === 0 ? '' : 'loading="lazy"'} width="1800" height="1800">
+      </div>`).join('');
+
+    // Riel lateral — también sirve para saltar directo a una película
+    $('#stageRail').innerHTML = PRODUCTOS.map((p, n) => `
+      <button class="rail-item${n === 0 ? ' active' : ''}" data-n="${n}">
+        <span class="rail-dot"></span>
+        <span>${esc(p.nombre)}</span>
+        <span class="rail-num">0${n + 1}</span>
+      </button>`).join('');
+
+    $('#stageIndex').querySelector('em').textContent = '0' + PRODUCTOS.length;
+
+    if (!this.soportado()) { sec.classList.add('static-fallback'); this.pintar(0, true); return; }
+
+    this.activo = true;
+    sec.style.height = `${(PRODUCTOS.length + 0.6) * 100}vh`;
+    this.pintar(0, true);
+    this.alScroll();
+  },
+
+  /* Cambia lo que se ve en el cuadro */
+  pintar(n, inmediato) {
+    if (n === this.i) return;
+    const p = PRODUCTOS[n];
+    if (!p) return;
+    this.i = n;
+
+    document.querySelectorAll('.filmstage-layer').forEach(el =>
+      el.classList.toggle('active', +el.dataset.n === n));
+    document.querySelectorAll('.rail-item').forEach(el =>
+      el.classList.toggle('active', +el.dataset.n === n));
+
+    // En móvil el riel es horizontal: arrastra el chip activo a la vista
+    const rail = $('#stageRail'), chip = rail && rail.querySelector('.rail-item.active');
+    if (chip && rail.scrollWidth > rail.clientWidth + 4) {
+      rail.scrollTo({ left: chip.offsetLeft - rail.clientWidth / 2 + chip.offsetWidth / 2, behavior: 'smooth' });
     }
+
+    $('#stageIndex').querySelector('span').textContent = '0' + (n + 1);
+    $('#stageBtn').dataset.id = p.id;
+
+    const nombre = $('#stageName'), claim = $('#stageClaim'), tonos = $('#stageTonos');
+    const escribir = () => {
+      nombre.textContent = p.nombre;
+      claim.textContent  = tx(p.claim);
+      tonos.innerHTML = p.tonos.map(t2 =>
+        `<span class="tono">${esc(t2.nombre)}${t2.vlt != null ? ` · ${t2.vlt}%` : ''}</span>`).join('');
+      [nombre, claim, tonos].forEach(el => { el.classList.add('stage-fade'); el.classList.remove('out'); });
+    };
+
+    if (inmediato) { escribir(); return; }
+    [nombre, claim, tonos].forEach(el => { el.classList.add('stage-fade', 'out'); });
+    clearTimeout(this._t);
+    this._t = setTimeout(escribir, 190);
+  },
+
+  /* Traduce la posición del scroll a un índice de película */
+  alScroll() {
+    if (!this.activo) return;
+    const sec = $('#peliculas');
+    const r = sec.getBoundingClientRect();
+    const recorrido = sec.offsetHeight - window.innerHeight;
+    if (recorrido <= 0) return;
+
+    const avance = Math.min(1, Math.max(0, -r.top / recorrido));
+    const n = Math.min(PRODUCTOS.length - 1, Math.floor(avance * PRODUCTOS.length));
+    this.pintar(n);
+
+    const hint = $('#stageHint');
+    if (hint) hint.classList.toggle('gone', avance > 0.04);
+  },
+
+  /* Clic en el riel: lleva el scroll al tramo de esa película */
+  irA(n) {
+    const sec = $('#peliculas');
+    if (!this.activo) { abrirFicha(PRODUCTOS[n].id); return; }
+    const recorrido = sec.offsetHeight - window.innerHeight;
+    const y = sec.offsetTop + recorrido * ((n + 0.5) / PRODUCTOS.length);
+    window.scrollTo({ top: y, behavior: 'smooth' });
+  }
+};
+
+/* ═══ ARRANQUE ═══════════════════════════════════════════════ */
+
+document.addEventListener('DOMContentLoaded', () => {
+  $('#year').textContent = new Date().getFullYear();
+
+  let guardado = 'es';
+  try { guardado = localStorage.getItem('solaro-lang') || 'es'; } catch (e) {}
+  aplicarIdioma(guardado);
+
+  // Idioma
+  document.querySelectorAll('.lang-btn').forEach(b =>
+    b.addEventListener('click', () => aplicarIdioma(b.dataset.lang)));
+
+  // Nav scrolled
+  Stage.montar();
+
+  const nav = $('#nav');
+  let ticking = false;
+  const onScroll = () => {
+    nav.classList.toggle('scrolled', window.scrollY > 24);
+    if (!ticking) {
+      ticking = true;
+      requestAnimationFrame(() => { Stage.alScroll(); ticking = false; });
+    }
+  };
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', () => Stage.alScroll(), { passive: true });
+
+  // Menú móvil
+  const toggle = $('#navToggle'), links = $('#navLinks');
+  toggle.addEventListener('click', () => {
+    const abierto = links.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', abierto ? 'true' : 'false');
+  });
+  links.addEventListener('click', e => {
+    if (e.target.tagName === 'A') { links.classList.remove('open'); toggle.setAttribute('aria-expanded', 'false'); }
   });
 
-  // ─── CTA REVEAL ───
-  if (!reduced) {
-    gsap.fromTo('.cta-giant', { opacity: 0, y: 80, scale: 0.95 }, {
-      opacity: 1, y: 0, scale: 1, duration: 1.5, ease: 'power2.out',
-      scrollTrigger: { trigger: '.cta-section', start: 'top 60%' }
-    });
-    gsap.fromTo('.cta-btn', { opacity: 0, y: 40 }, {
-      opacity: 1, y: 0, duration: 1, ease: 'power2.out', delay: 0.3,
-      scrollTrigger: { trigger: '.cta-section', start: 'top 60%' }
-    });
-  }
+  // Filtros + tarjetas (delegación)
+  document.addEventListener('click', e => {
+    const f = e.target.closest('[data-filtro]');
+    if (f) { FILTRO = f.dataset.filtro; renderFiltros(); renderCatalogo(); return; }
 
-  // ─── ENVIRONMENT PARALLAX ───
-  if (!reduced && window.innerWidth > 768) {
-    document.querySelectorAll('.env-interior').forEach(el => {
-      gsap.to(el, {
-        y: -40,
-        scrollTrigger: { trigger: el, start: 'top bottom', end: 'bottom top', scrub: 1 }
-      });
-    });
-  }
+    const rail = e.target.closest('.rail-item');
+    if (rail) { Stage.irA(+rail.dataset.n); return; }
 
-  // Initialize WhatsApp link
-  updateWA();
+    const sBtn = e.target.closest('#stageBtn');
+    if (sBtn && sBtn.dataset.id) { abrirFicha(sBtn.dataset.id); return; }
+
+    const card = e.target.closest('.card');
+    if (card) { abrirFicha(card.dataset.id); return; }
+
+    if (e.target.closest('[data-close]')) { cerrarFicha(); return; }
+
+    const wa = e.target.closest('[data-wa]');
+    if (wa) { abrirWA(`${t('wa-product')} ${wa.dataset.wa}. ${t('wa-generic')}`); return; }
+  });
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && $('#modal').classList.contains('open')) cerrarFicha();
+  });
+
+  $('#quoteForm').addEventListener('submit', enviarForm);
 });

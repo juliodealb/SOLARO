@@ -1,98 +1,56 @@
-# SOLARO — Premium Film Technology
+# SOLARO — solarofilms.com
 
-## Project Structure
+Sitio estático (GitHub Pages) del catálogo de películas SOLARO.
 
-```
-solaro/
-├── index.html          # Main HTML file
-├── styles.css          # All styles
-├── script.js           # Application logic
-├── assets/             # Static assets (add images, icons here)
-│   └── .gitkeep
-├── images/             # Images directory
-│   └── .gitkeep
-├── favicon.ico         # Add your favicon
-└── README.md           # This file
-```
+## Archivos
 
-## Quick Start
+| Archivo | Qué es |
+|---|---|
+| `index.html` | Estructura de la página. Rara vez se toca. |
+| `products.js` | **Aquí se edita todo**: productos, tonos, especificaciones, contacto. |
+| `script.js` | Lógica: idioma, catálogo, fichas, cotizador. |
+| `styles.css` | Diseño. |
+| `assets/opt/` | Imágenes optimizadas en WebP (las que usa el sitio). |
+| `assets/*.jpg` | Originales 4096px. No las usa el sitio, se conservan como respaldo. |
+| `CNAME` | Dominio personalizado. No borrar. |
 
-### Local Development
+## Cosas pendientes
+
+1. **WhatsApp** — en `products.js`, línea `whatsapp:`. Poner el número en formato
+   internacional sin `+` ni espacios (ej. `5213312345678`). Mientras diga
+   `PENDIENTE` aparece un aviso amarillo al pie del sitio y los botones de
+   cotizar llevan al formulario en vez de a WhatsApp.
+2. **Teléfono** — misma sección.
+3. **Datos térmicos** — `MOSTRAR_SHGC = false`. Cambiar a `true` sólo cuando
+   haya reporte de laboratorio con SHGC / TSER reales por tono.
+   Recordatorio: `SC = SHGC ÷ 0.87`, y el SC siempre sale más alto que el SHGC.
+4. **Garantía** — dice `PENDIENTE` en todos los productos.
+
+## Cómo verlo en local
+
 ```bash
-# Any static server works
-npx serve .
-# or
 python3 -m http.server 8080
-# or
-npx http-server .
+# abrir http://localhost:8080
 ```
 
-Open `http://localhost:8080`
+## HTTPS
 
-### Deploy to GitHub Pages
-```bash
-git init
-git add .
-git commit -m "Initial commit"
-git branch -M main
-git remote add origin https://github.com/YOUR_USERNAME/solaro.git
-git push -u origin main
+El certificado de GitHub Pages estuvo bloqueado por un registro AAAA incorrecto
+en GoDaddy (`2606:50c0:8006::153` en vez de `2606:50c0:8003::153`).
+Los cuatro AAAA correctos son:
 
-# In GitHub Settings → Pages → Source: main branch
+```
+2606:50c0:8000::153
+2606:50c0:8001::153
+2606:50c0:8002::153
+2606:50c0:8003::153
 ```
 
-### Deploy to Vercel
-```bash
-npm i -g vercel
-vercel
-# Follow prompts, set root directory to project folder
+Y los cuatro A:
+
 ```
-
-### Deploy to Netlify
-```bash
-# Drag and drop the entire folder to app.netlify.com/drop
-# or
-npm i -g netlify-cli
-netlify deploy --prod --dir=.
+185.199.108.153
+185.199.109.153
+185.199.110.153
+185.199.111.153
 ```
-
-## Customization
-
-### Change WhatsApp Number
-Edit `script.js` → `updateWA()` and `openWA()`:
-```javascript
-// Replace 523312345678 with your number
-document.getElementById('waFloat').href = `https://wa.me/YOUR_NUMBER?text=${m}`;
-```
-
-### Change Languages
-Edit `I18N` dictionary in `script.js`. All visible text is controlled from there.
-
-### Add Distributors
-In `index.html` footer, add more `footer-dist-item` divs:
-```html
-<div class="footer-dist-item" data-i18n="dist-your-code">Your Country — Distributor Name</div>
-```
-Then add the translation key to all three languages in `script.js`.
-
-### Add Images
-Place images in `/images/` and reference them in CSS:
-```css
-background-image: url('/images/your-image.webp');
-```
-
-## Libraries (CDN)
-- **GSAP 3.12.5** — Animation engine + ScrollTrigger
-- **Lenis 1.1.18** — Smooth scrolling
-- **Google Fonts** — Bebas Neue, DM Sans, Noto Sans JP, Space Mono
-
-## Browser Support
-Chrome 90+, Firefox 88+, Safari 14+, Edge 90+
-Requires `backdrop-filter` support for glass effects.
-
-## Performance
-- Zero external images (all CSS-generated visuals)
-- Fonts loaded with `font-display: swap`
-- Animations use `transform` and `opacity` only
-- `will-change` used sparingly
-- `prefers-reduced-motion` respected
