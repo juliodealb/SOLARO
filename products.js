@@ -36,8 +36,11 @@ const CONTACTO = {
 const MOSTRAR_IR    = true;   // Rechazo IR — dato de línea, defendible
 const MOSTRAR_SHGC  = false;  // SHGC / TSER / SC — esperando laboratorio
 
-// Dato común a toda la línea
-const ROLLO = '1.52 m × 30 m';
+// Dato común a toda la línea.
+// El ancho de 1.80 m aplica a TODAS las películas, siempre bajo pedido.
+const ROLLO = { es: '1.52 m × 30 m · 1.80 m bajo pedido',
+                en: '1.52 m × 30 m · 1.80 m on request',
+                ja: '1.52 m × 30 m ・1.80 m は受注生産' };
 
 /* ───────────────────────────────────────────────────────────────
    PRODUCTOS
@@ -60,12 +63,12 @@ const PRODUCTOS = [
     id: 'irx',
     nombre: 'IRX™ Cerámica',
     familia: 'ceramica',
-    disponibilidad: 'stock',
+    disponibilidad: 'pedido',
     categorias: ['arquitectonica', 'automotriz'],
     img: 'assets/opt/ceramic.webp',
     imgSm: 'assets/opt/ceramic-sm.webp',
     destacado: true,
-    badge: { es: 'EN EXISTENCIA', en: 'IN STOCK', ja: '在庫あり' },
+    badge: null,
     claim: {
       es: 'Rechaza el calor sin oscurecer el vidrio.',
       en: 'Rejects heat without darkening the glass.',
@@ -142,12 +145,12 @@ const PRODUCTOS = [
     id: 'reflectx',
     nombre: 'ReflectX™',
     familia: 'reflectiva',
-    disponibilidad: 'stock',
+    disponibilidad: 'pedido',
     categorias: ['arquitectonica'],
     img: 'assets/opt/silver.webp',
     imgSm: 'assets/opt/silver-sm.webp',
     destacado: true,
-    badge: { es: 'EN EXISTENCIA', en: 'IN STOCK', ja: '在庫あり' },
+    badge: null,
     claim: {
       es: 'Acabado espejo para fachadas con sol directo.',
       en: 'Mirror finish for façades in direct sun.',

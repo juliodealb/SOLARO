@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>SOLARO — Películas para vidrio | Control solar, privacidad y PDLC</title>
 <meta name="description" content="Catálogo de películas nano cerámicas, de carbono, reflectivas, decorativas y PDLC switchable para arquitectura y automotriz. Distribución en México y 10 países.">
-<meta name="theme-color" content="#0b0c0d">
+<meta name="theme-color" content="#121826">
 <link rel="canonical" href="https://solarofilms.com/">
 
 <meta property="og:type" content="website">
@@ -20,6 +20,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,700&family=Noto+Sans+JP:wght@400;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 <link rel="preload" as="image" href="assets/opt/ceramic.webp">
+<link rel="preload" as="image" href="assets/opt/logo.png">
+<link rel="icon" href="assets/opt/logo.png">
 </head>
 <body>
 
@@ -27,7 +29,7 @@
 
 <!-- ═══ NAV ═══ -->
 <nav class="nav" id="nav">
-  <a href="#top" class="nav-mark">SOLARO</a>
+  <a href="#top" class="nav-mark" aria-label="SOLARO"><img src="assets/opt/logo.png" srcset="assets/opt/logo.png 1x, assets/opt/logo@2x.png 2x" alt="SOLARO" width="539" height="120"></a>
   <ul class="nav-links" id="navLinks">
     <li><a href="#catalogo"       data-i18n="nav-cat">Catálogo</a></li>
     <li><a href="#comparativa"    data-i18n="nav-comp">Comparativa</a></li>
@@ -49,7 +51,7 @@
     <img src="assets/opt/ceramic.webp" alt="" fetchpriority="high" width="1800" height="1800">
   </div>
   <div class="container hero-inner">
-    <h1 class="hero-wordmark">SOLARO</h1>
+    <h1 class="hero-wordmark"><img src="assets/opt/logo.png" srcset="assets/opt/logo.png 1x, assets/opt/logo@2x.png 2x" alt="SOLARO" width="539" height="120"></h1>
     <p class="hero-tagline" data-i18n="hero-tag">Películas de alto desempeño para vidrio arquitectónico y automotriz. Control solar, privacidad y tecnología switchable.</p>
     <div class="hero-actions">
       <a href="#catalogo" class="btn btn-primary" data-i18n="hero-cta1">Ver catálogo</a>
@@ -91,8 +93,8 @@
 <section class="metrics" aria-label="Datos clave">
   <div class="metrics-grid">
     <div class="metric"><div class="metric-val">99%</div><div class="metric-label" data-i18n="m-uv">Bloqueo UV</div></div>
-    <div class="metric"><div class="metric-val">4</div><div class="metric-label" data-i18n="m-lines">Líneas de producto</div></div>
-    <div class="metric"><div class="metric-val">1.52<span style="font-size:.5em">m</span></div><div class="metric-label" data-i18n="m-roll">Ancho de rollo</div></div>
+    <div class="metric"><div class="metric-val">4</div><div class="metric-label" data-i18n="m-lines">Tonos cerámicos</div></div>
+    <div class="metric"><div class="metric-val">1.80<span style="font-size:.5em">m</span></div><div class="metric-label" data-i18n="m-roll">Ancho máximo</div></div>
     <div class="metric"><div class="metric-val">10</div><div class="metric-label" data-i18n="m-dist">Países con distribuidor</div></div>
   </div>
 </section>
@@ -119,6 +121,7 @@
       <p class="section-lead" data-i18n="comp-lead">Los datos que ya están verificados. Los valores térmicos se publican cuando tengamos el reporte de laboratorio.</p>
     </div>
     <div class="compare-scroll"><table class="compare" id="compare"></table></div>
+    <p class="compare-nota" id="compareNota"></p>
   </div>
 </section>
 
@@ -138,24 +141,24 @@
   <div class="container">
     <div class="section-head">
       <p class="eyebrow" data-i18n="eb-why">Por qué SOLARO</p>
-      <h2 class="section-title" data-i18n="why-title">Distribución seria, no catálogo bonito.</h2>
+      <h2 class="section-title" data-i18n="why-title">Cómo trabajamos.</h2>
     </div>
     <div class="why-grid">
       <div class="why-item">
-        <h3 class="why-title" data-i18n="why1-t">Inventario en piso</h3>
-        <p class="why-text" data-i18n="why1-d">Rollos de 1.52 × 30 m disponibles en Guadalajara. Sin esperar tres meses a un contenedor.</p>
+        <h3 class="why-title" data-i18n="why1-t">Pedido a la medida</h3>
+        <p class="why-text" data-i18n="why1-d">No manejamos catálogo cerrado. Se cotiza y se surte según los metros y el tono que pide tu proyecto.</p>
       </div>
       <div class="why-item">
-        <h3 class="why-title" data-i18n="why2-t">Soporte técnico real</h3>
+        <h3 class="why-title" data-i18n="why2-t">Asesoría en la selección</h3>
         <p class="why-text" data-i18n="why2-d">Te ayudamos a elegir el tono correcto según orientación de fachada, tipo de vidrio y uso del espacio.</p>
       </div>
       <div class="why-item">
-        <h3 class="why-title" data-i18n="why3-t">Red de instaladores</h3>
-        <p class="why-text" data-i18n="why3-d">Si no instalas, te conectamos con un instalador certificado en tu zona.</p>
+        <h3 class="why-title" data-i18n="why3-t">Anchos especiales</h3>
+        <p class="why-text" data-i18n="why3-d">El estándar es 1.52 m. Todas las películas se pueden pedir en 1.80 m para ventanales grandes, sin uniones a la vista.</p>
       </div>
       <div class="why-item">
-        <h3 class="why-title" data-i18n="why4-t">Precio de distribuidor</h3>
-        <p class="why-text" data-i18n="why4-d">Esquema por volumen para talleres, constructoras y despachos de arquitectura.</p>
+        <h3 class="why-title" data-i18n="why4-t">Trato directo</h3>
+        <p class="why-text" data-i18n="why4-d">Hablas con quien surte, no con un call center. Talleres, constructoras y despachos de arquitectura.</p>
       </div>
     </div>
   </div>
@@ -243,7 +246,7 @@
   <div class="container">
     <div class="footer-top">
       <div>
-        <div class="footer-mark">SOLARO</div>
+        <div class="footer-mark"><img src="assets/opt/logo.png" srcset="assets/opt/logo.png 1x, assets/opt/logo@2x.png 2x" alt="SOLARO" width="539" height="120"></div>
         <p class="footer-tag" data-i18n="foot-tag">Películas de alto desempeño para vidrio. Distribución y soporte técnico.</p>
       </div>
       <div>

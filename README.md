@@ -14,6 +14,26 @@ Sitio estático (GitHub Pages) del catálogo de películas SOLARO.
 | `assets/*.jpg` | Originales 4096px. No las usa el sitio, se conservan como respaldo. |
 | `CNAME` | Dominio personalizado. No borrar. |
 
+## Paleta de marca
+
+Los colores salen del logo y de la caja del producto, no son inventados.
+Están todos en `styles.css`, arriba del todo, en `:root`.
+
+| Variable | Valor | De dónde salió |
+|---|---|---|
+| `--ink` | `#121826` | fondo, azul pizarra de la familia de la caja |
+| `--surface` | `#1a2130` | tarjetas |
+| `--accent` | `#f79b1f` | naranja del swoosh del logo |
+| `--azul` | `#3a62e0` | azul de la caja de producto |
+| `--text` | `#eef2f8` | blanco frío |
+
+Cambiar el acento de todo el sitio = cambiar `--accent`. Nada más.
+
+El logo vive en `assets/opt/logo.png` (y `logo@2x.png` para pantallas retina).
+Está en PNG con fondo transparente y el wordmark en claro, para que se lea
+sobre el fondo oscuro. Si algún día necesitas la versión oscura para fondo
+blanco, usa el original.
+
 ## Cosas pendientes
 
 1. **WhatsApp** — en `products.js`, línea `whatsapp:`. Poner el número en formato
